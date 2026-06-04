@@ -1,0 +1,79 @@
+---
+aid: iisc
+name: Indian Institute of Science Bangalore
+description: >-
+  The Indian Institute of Science (IISc) Bangalore is India's premier research-intensive
+  university, founded in 1909, and ranked #211 in the QS World University Rankings 2025.
+  IISc does not operate a formal, centralized public developer portal. Its confirmable
+  public machine-readable footprint is academic: the ePrints@IISc institutional repository
+  (EPrints software) exposes an OAI-PMH metadata interface, and the DSpace-based ETD@IISc
+  theses repository is likewise OAI-compliant. Individual labs and centres publish open
+  source on GitHub (for example cni-iisc, csl-iisc, val-iisc), but there is no single
+  official institutional GitHub org with public repositories or a documented REST API
+  program.
+type: Index
+position: Consumer
+access: 3rd-Party
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: https://raw.githubusercontent.com/api-evangelist/iisc/refs/heads/main/apis.yml
+tags:
+  - Education
+  - Higher Education
+  - University
+  - Research
+  - Open Access
+  - Institutional Repository
+  - OAI-PMH
+  - India
+created: '2026-06-03'
+modified: '2026-06-03'
+specificationVersion: '0.19'
+apis:
+  - aid: iisc:eprints-oai
+    name: ePrints@IISc OAI-PMH
+    description: >-
+      ePrints@IISc is the open-access institutional repository of IISc research
+      publications, established in 2002 on EPrints software. It is OAI-compliant
+      and exposes an OAI-PMH metadata-harvesting interface at the standard EPrints
+      /cgi/oai2 path for indexing and metadata reuse. The repository is publicly
+      readable; deposit is restricted to the IISc research community. The live site
+      is fronted by an Azure Application Gateway that blocks automated requests, so
+      the OAI endpoint could not be programmatically verified during this review.
+    humanURL: https://eprints.iisc.ac.in/information.html
+    baseURL: https://eprints.iisc.ac.in/cgi/oai2
+    tags: [ Repository, OAI-PMH, Open Access, Metadata, Research ]
+    properties:
+      - type: Documentation
+        url: https://eprints.iisc.ac.in/information.html
+  - aid: iisc:etd-oai
+    name: ETD@IISc OAI-PMH
+    description: >-
+      ETD@IISc is the Electronic Theses and Dissertations repository of IISc, built
+      on DSpace and documented as ETD-MS and OAI-PMH compliant, exposing thesis
+      metadata for harvesting. The host returned an HTTP 502 during this review, so
+      the live OAI endpoint could not be confirmed.
+    humanURL: https://etd.iisc.ac.in/
+    tags: [ Repository, OAI-PMH, Theses, DSpace, Research ]
+    properties:
+      - type: Documentation
+        url: https://etd.iisc.ac.in/
+common:
+  - type: Website
+    url: https://iisc.ac.in/
+  - type: Library
+    url: https://library.iisc.ac.in/
+  - type: GitHub
+    url: https://github.com/IISc
+  - type: LinkedIn
+    url: https://www.linkedin.com/school/indian-institute-of-science/
+  - type: Plans
+    url: plans/iisc-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/iisc-rate-limits.yml
+  - type: FinOps
+    url: finops/iisc-finops.yml
+  - type: Review
+    url: review.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

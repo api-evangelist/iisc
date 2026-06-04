@@ -1,0 +1,42 @@
+---
+name: Indian Institute of Science Bangalore
+description: Indian Institute of Science Bangalore public developer/API footprint review for APIs.json cataloging.
+url: https://raw.githubusercontent.com/api-evangelist/iisc/refs/heads/main/review.yml
+created: '2026-06-03'
+modified: '2026-06-03'
+reviews:
+  - date: '2026-06-03'
+    rating: 2
+    summary: >-
+      IISc (QS World 2025 #211) has no centralized public developer portal or documented
+      REST API program. The confirmable machine-readable footprint is academic open-access
+      infrastructure: the ePrints@IISc institutional repository (OAI-PMH compliant, standard
+      EPrints /cgi/oai2 path) and the DSpace-based ETD@IISc theses repository (OAI/ETD-MS
+      compliant). Both are documented in the Registry of Open Access Repositories and IISc's
+      own pages, but neither OAI endpoint could be programmatically verified live: eprints
+      returns HTTP 403 from an Azure Application Gateway bot block, and etd returned HTTP 502.
+      The official website and library site resolve cleanly. github.com/IISc exists but
+      exposes no public repositories; only lab-level orgs (cni-iisc, csl-iisc, val-iisc)
+      publish open source. No endpoints were fabricated; all unverified items are flagged.
+    endpoints:
+      - url: https://iisc.ac.in/
+        status: 200
+        note: Official institution website, resolves.
+      - url: https://library.iisc.ac.in/
+        status: 200
+        note: IISc library site, Drupal-based, resolves.
+      - url: https://eprints.iisc.ac.in/
+        status: 403
+        note: ePrints@IISc repository; Azure App Gateway blocks automated requests (exists, documented).
+      - url: https://eprints.iisc.ac.in/cgi/oai2
+        status: 403
+        note: OAI-PMH endpoint (standard EPrints path); blocked to automation, not programmatically confirmed.
+      - url: https://etd.iisc.ac.in/
+        status: 502
+        note: ETD@IISc DSpace theses repository; bad gateway at review time.
+      - url: https://github.com/IISc
+        status: 200
+        note: GitHub org exists but has no public repositories or members.
+      - url: https://www.linkedin.com/school/indian-institute-of-science/
+        status: 999
+        note: LinkedIn school page; 999 is LinkedIn anti-bot, page is human-accessible.
