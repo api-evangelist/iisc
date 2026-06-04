@@ -1,0 +1,25 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://etd.iisc.ac.in/rest/communities"
+  },
+  "response": [
+    {
+      "uuid": "2bd27fe2-529b-47a5-ae03-6a2613ddb729",
+      "name": "Autonomous Societies / centres",
+      "handle": "2005/64",
+      "type": "community",
+      "link": "/rest/communities/2bd27fe2-529b-47a5-ae03-6a2613ddb729",
+      "expand": ["parentCommunity", "collections", "subCommunities", "logo", "all"],
+      "logo": null,
+      "parentCommunity": null,
+      "copyrightText": "",
+      "introductoryText": "",
+      "shortDescription": "",
+      "sidebarText": "",
+      "countItems": 0,
+      "collections": [],
+      "subcommunities": []
+    }
+  ]
+}

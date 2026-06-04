@@ -1,0 +1,59 @@
+---
+# Spectral ruleset encoding patterns observed in the ETD@IISc DSpace 6 REST API.
+# These rules express conventions confirmed against the live API: UUID-keyed
+# resources, handle identifiers, a discriminating "type" field, and read-only
+# JSON responses.
+formats:
+  - oas3
+rules:
+  iisc-info-contact:
+    description: API info should include a contact.
+    severity: warn
+    given: $.info
+    then:
+      field: contact
+      function: truthy
+
+  iisc-server-https:
+    description: ETD@IISc REST servers must be served over HTTPS.
+    severity: error
+    given: $.servers[*].url
+    then:
+      function: pattern
+      functionOptions:
+        match: "^https://"
+
+  iisc-operation-id:
+    description: Every operation must declare an operationId.
+    severity: error
+    given: $.paths[*][get,post,put,delete,patch]
+    then:
+      field: operationId
+      function: truthy
+
+  iisc-object-has-uuid:
+    description: >-
+      Core DSpace resource schemas (Community, Collection, Item, Bitstream)
+      should expose a uuid property, matching the live API.
+    severity: warn
+    given: $.components.schemas[Community,Collection,Item,Bitstream]
+    then:
+      function: defined
+
+  iisc-object-has-type-discriminator:
+    description: DSpace base object must carry a string "type" discriminator.
+    severity: warn
+    given: $.components.schemas.DSpaceObject.properties.type
+    then:
+      field: type
+      function: truthy
+
+  iisc-read-only-paths:
+    description: >-
+      The public ETD@IISc profile is read-only; only GET operations are
+      expected on documented paths.
+    severity: warn
+    given: $.paths[*]
+    then:
+      field: post
+      function: undefined

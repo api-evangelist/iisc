@@ -1,0 +1,54 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://etd.iisc.ac.in/rest/items?limit=1&expand=metadata,bitstreams"
+  },
+  "response": [
+    {
+      "uuid": "6c85dfdd-ee8a-47e0-a1a8-0a329b180a7d",
+      "name": "Antigenic Determinants Of Chicken Riboflavin Carrier Protein",
+      "handle": "2005/141",
+      "type": "item",
+      "link": "/rest/items/6c85dfdd-ee8a-47e0-a1a8-0a329b180a7d",
+      "expand": ["parentCollection", "parentCollectionList", "all"],
+      "lastModified": "2020-10-27 12:52:56.13",
+      "archived": "true",
+      "withdrawn": "false",
+      "metadata": [
+        {
+          "key": "dc.contributor.advisor",
+          "value": "Adiga, P R",
+          "language": null,
+          "element": "contributor",
+          "qualifier": "advisor",
+          "schema": "dc"
+        },
+        {
+          "key": "dc.contributor.author",
+          "value": "Beena, T K",
+          "language": "en",
+          "element": "contributor",
+          "qualifier": "author",
+          "schema": "dc"
+        },
+        {
+          "key": "dc.date.issued",
+          "value": "2005-09-01",
+          "language": null,
+          "element": "date",
+          "qualifier": "issued",
+          "schema": "dc"
+        },
+        {
+          "key": "dc.subject",
+          "value": "Riboflavin Carrier Protein (RCP)",
+          "language": "en",
+          "element": "subject",
+          "qualifier": null,
+          "schema": "dc"
+        }
+      ],
+      "bitstreams": []
+    }
+  ]
+}

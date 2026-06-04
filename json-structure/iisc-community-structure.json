@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/iisc/main/json-structure/iisc-community-structure.json",
+  "name": "ETDCommunity",
+  "description": "JSON Structure for an ETD@IISc DSpace community (organizational unit).",
+  "type": "object",
+  "properties": {
+    "uuid": { "type": "string" },
+    "name": { "type": "string" },
+    "handle": { "type": "string" },
+    "type": { "type": "string" },
+    "link": { "type": "string" },
+    "countItems": { "type": "integer" },
+    "shortDescription": { "type": "string" },
+    "introductoryText": { "type": "string" },
+    "collections": {
+      "type": "array",
+      "items": { "type": "object" }
+    },
+    "subcommunities": {
+      "type": "array",
+      "items": { "type": "object" }
+    }
+  },
+  "required": ["uuid", "name", "handle", "type"]
+}

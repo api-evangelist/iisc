@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/iisc/main/json-structure/iisc-item-structure.json",
+  "name": "ETDItem",
+  "description": "JSON Structure for an ETD@IISc DSpace item (thesis/dissertation record).",
+  "type": "object",
+  "properties": {
+    "uuid": { "type": "string" },
+    "name": { "type": "string" },
+    "handle": { "type": "string" },
+    "type": { "type": "string" },
+    "link": { "type": "string" },
+    "lastModified": { "type": "string" },
+    "archived": { "type": "boolean" },
+    "withdrawn": { "type": "boolean" },
+    "metadata": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "key": { "type": "string" },
+          "value": { "type": "string" },
+          "language": { "type": ["string", "null"] },
+          "element": { "type": "string" },
+          "qualifier": { "type": ["string", "null"] },
+          "schema": { "type": "string" }
+        }
+      }
+    },
+    "bitstreams": {
+      "type": "array",
+      "items": { "type": "object" }
+    }
+  },
+  "required": ["uuid", "name", "handle", "type"]
+}

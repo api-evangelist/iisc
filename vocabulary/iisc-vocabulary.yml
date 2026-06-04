@@ -1,0 +1,49 @@
+---
+vocabulary:
+  name: ETD@IISc DSpace Vocabulary
+  description: >-
+    Controlled vocabulary for the terms used by the ETD@IISc Electronic Theses
+    and Dissertations repository's DSpace 6 REST API and its Dublin Core metadata.
+    Definitions reflect the live API observed during enrichment.
+  version: '1.0.0'
+  terms:
+    - term: Community
+      definition: >-
+        A top-level or nested organizational unit (division, department, or
+        centre) that groups collections and sub-communities.
+      tags: [dspace, hierarchy, organization]
+    - term: Collection
+      definition: >-
+        A named set of items belonging to a community; the container into which
+        theses are deposited.
+      tags: [dspace, hierarchy, container]
+    - term: Item
+      definition: >-
+        An archived repository record representing a single thesis or dissertation,
+        carrying Dublin Core metadata and zero or more bitstreams.
+      tags: [dspace, record, thesis]
+    - term: Bitstream
+      definition: >-
+        A file attached to an item, such as the full-text thesis PDF, with a
+        mimeType, sizeBytes, and retrieveLink.
+      tags: [dspace, file, content]
+    - term: Handle
+      definition: >-
+        A persistent identifier assigned to communities, collections, and items
+        (for example 2005/141) under the Handle System.
+      tags: [identifier, persistence]
+    - term: MetadataEntry
+      definition: >-
+        A single qualified Dublin Core field on an item, composed of schema,
+        element, qualifier, value, and language.
+      tags: [metadata, dublin-core]
+    - term: OAI-PMH
+      definition: >-
+        The Open Archives Initiative Protocol for Metadata Harvesting interface
+        exposed by the repository at /oai/request for metadata reuse.
+      tags: [harvesting, interoperability, metadata]
+    - term: expand
+      definition: >-
+        Query parameter listing sub-resources to inline in a response, such as
+        metadata, bitstreams, collections, or subcommunities.
+      tags: [query, api]

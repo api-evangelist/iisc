@@ -28,6 +28,9 @@ tags:
 created: '2026-06-03'
 modified: '2026-06-03'
 specificationVersion: '0.19'
+# 2026-06-03: ETD@IISc is live on DSpace 6 and exposes a verified read-only REST
+# API at https://etd.iisc.ac.in/rest (Communities/Collections/Items/Bitstreams,
+# JSON) plus an OAI-PMH endpoint at /oai/request. Full artifacts added below.
 apis:
   - aid: iisc:eprints-oai
     name: ePrints@IISc OAI-PMH
@@ -53,10 +56,25 @@ apis:
       metadata for harvesting. The host returned an HTTP 502 during this review, so
       the live OAI endpoint could not be confirmed.
     humanURL: https://etd.iisc.ac.in/
-    tags: [ Repository, OAI-PMH, Theses, DSpace, Research ]
+    baseURL: https://etd.iisc.ac.in/oai/request
+    tags: [ Repository, OAI-PMH, Theses, DSpace, Research, REST ]
     properties:
       - type: Documentation
         url: https://etd.iisc.ac.in/
+      - type: OpenAPI
+        url: openapi/iisc-etd-rest.yaml
+      - type: x-json-schema
+        url: json-schema/iisc-item-schema.json
+      - type: x-json-structure
+        url: json-structure/iisc-item-structure.json
+      - type: x-examples
+        url: examples/iisc-listItems-example.json
+      - type: x-rules
+        url: rules/iisc-rules.yml
+      - type: x-vocabulary
+        url: vocabulary/iisc-vocabulary.yml
+      - type: x-json-ld
+        url: json-ld/iisc-context.jsonld
 common:
   - type: Website
     url: https://iisc.ac.in/

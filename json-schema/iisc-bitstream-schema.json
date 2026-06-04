@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/iisc/main/json-schema/iisc-bitstream-schema.json",
+  "title": "ETD@IISc Bitstream",
+  "description": "A bitstream (file, such as a thesis PDF) in the ETD@IISc DSpace REST API.",
+  "type": "object",
+  "required": ["uuid", "type"],
+  "properties": {
+    "uuid": { "type": "string", "format": "uuid" },
+    "name": { "type": "string" },
+    "handle": { "type": ["string", "null"] },
+    "type": { "type": "string", "const": "bitstream" },
+    "link": { "type": "string" },
+    "expand": { "type": "array", "items": { "type": "string" } },
+    "bundleName": { "type": "string" },
+    "description": { "type": ["string", "null"] },
+    "format": { "type": "string" },
+    "mimeType": { "type": "string" },
+    "sizeBytes": { "type": "integer" },
+    "retrieveLink": { "type": "string" },
+    "sequenceId": { "type": "integer" },
+    "checkSum": {
+      "type": "object",
+      "properties": {
+        "value": { "type": "string" },
+        "checkSumAlgorithm": { "type": "string" }
+      }
+    }
+  }
+}

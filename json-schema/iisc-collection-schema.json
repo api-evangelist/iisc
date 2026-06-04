@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/iisc/main/json-schema/iisc-collection-schema.json",
+  "title": "ETD@IISc Collection",
+  "description": "A collection (set of items) in the ETD@IISc DSpace REST API.",
+  "type": "object",
+  "required": ["uuid", "name", "handle", "type"],
+  "properties": {
+    "uuid": { "type": "string", "format": "uuid" },
+    "name": { "type": "string" },
+    "handle": { "type": "string" },
+    "type": { "type": "string", "const": "collection" },
+    "link": { "type": "string" },
+    "expand": { "type": "array", "items": { "type": "string" } },
+    "logo": { "type": ["object", "null"] },
+    "parentCommunity": { "type": ["object", "null"] },
+    "parentCommunityList": { "type": "array", "items": { "type": "object" } },
+    "items": { "type": "array", "items": { "type": "object" } },
+    "license": { "type": ["string", "null"] },
+    "copyrightText": { "type": "string" },
+    "introductoryText": { "type": "string" },
+    "shortDescription": { "type": "string" },
+    "sidebarText": { "type": "string" },
+    "numberItems": { "type": "integer" }
+  }
+}

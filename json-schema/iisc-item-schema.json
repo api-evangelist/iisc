@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/iisc/main/json-schema/iisc-item-schema.json",
+  "title": "ETD@IISc Item",
+  "description": "An archived item (thesis/dissertation record) in the ETD@IISc DSpace REST API.",
+  "type": "object",
+  "required": ["uuid", "name", "handle", "type"],
+  "properties": {
+    "uuid": { "type": "string", "format": "uuid" },
+    "name": { "type": "string" },
+    "handle": { "type": "string" },
+    "type": { "type": "string", "const": "item" },
+    "link": { "type": "string" },
+    "expand": { "type": "array", "items": { "type": "string" } },
+    "lastModified": { "type": "string" },
+    "archived": { "type": "boolean" },
+    "withdrawn": { "type": "boolean" },
+    "metadata": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/metadataEntry" }
+    },
+    "bitstreams": {
+      "type": "array",
+      "items": { "type": "object" }
+    }
+  },
+  "definitions": {
+    "metadataEntry": {
+      "type": "object",
+      "required": ["key", "value"],
+      "properties": {
+        "key": { "type": "string" },
+        "value": { "type": "string" },
+        "language": { "type": ["string", "null"] },
+        "element": { "type": "string" },
+        "qualifier": { "type": ["string", "null"] },
+        "schema": { "type": "string" }
+      }
+    }
+  }
+}

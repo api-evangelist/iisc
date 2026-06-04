@@ -1,0 +1,26 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://etd.iisc.ac.in/rest/collections"
+  },
+  "response": [
+    {
+      "uuid": "69f74cce-3eed-46f7-b61c-c0fb6cd9228d",
+      "name": "Administration",
+      "handle": "2005/5170",
+      "type": "collection",
+      "link": "/rest/collections/69f74cce-3eed-46f7-b61c-c0fb6cd9228d",
+      "expand": ["parentCommunityList", "parentCommunity", "items", "license", "logo", "all"],
+      "logo": null,
+      "parentCommunity": null,
+      "parentCommunityList": [],
+      "items": [],
+      "license": null,
+      "copyrightText": "",
+      "introductoryText": "",
+      "shortDescription": "",
+      "sidebarText": "",
+      "numberItems": 0
+    }
+  ]
+}
