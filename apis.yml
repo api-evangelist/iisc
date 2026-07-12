@@ -76,6 +76,8 @@ apis:
       - type: x-json-ld
         url: json-ld/iisc-context.jsonld
 common:
+  - type: DomainSecurity
+    url: security/iisc-domain-security.yml
   - type: Website
     url: https://iisc.ac.in/
   - type: Library
