@@ -1,0 +1,254 @@
+openapi: 3.0.3
+info:
+  title: ETD@IISc DSpace REST Bitstreams Communities API
+  description: Read-only machine-readable REST API exposed by the ETD@IISc Electronic Theses and Dissertations repository, which runs on DSpace 6. The API serves the repository's Community / Collection / Item / Bitstream hierarchy as JSON. Paths and object schemas in this document were confirmed live against https://etd.iisc.ac.in/rest during enrichment (verb-less GET endpoints returning real JSON). Only endpoints and fields actually observed or part of the documented DSpace 6 REST contract are included. Write/authenticated endpoints are out of scope for this public read profile.
+  version: '6.0'
+  contact:
+    name: API Evangelist
+    url: https://etd.iisc.ac.in/
+servers:
+- url: https://etd.iisc.ac.in/rest
+  description: ETD@IISc DSpace 6 REST API
+tags:
+- name: Communities
+paths:
+  /communities:
+    get:
+      tags:
+      - Communities
+      summary: List communities
+      description: Returns the array of top-level and child communities in the repository.
+      operationId: listCommunities
+      parameters:
+      - $ref: '#/components/parameters/expand'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/offset'
+      responses:
+        '200':
+          description: A list of community objects.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Community'
+  /communities/{communityId}:
+    get:
+      tags:
+      - Communities
+      summary: Get a community
+      operationId: getCommunity
+      parameters:
+      - $ref: '#/components/parameters/communityId'
+      - $ref: '#/components/parameters/expand'
+      responses:
+        '200':
+          description: A single community object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Community'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+  parameters:
+    expand:
+      name: expand
+      in: query
+      description: Comma-separated list of sub-resources to inline in the response (for example metadata,bitstreams,collections,subcommunities).
+      required: false
+      schema:
+        type: string
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of records to return.
+      required: false
+      schema:
+        type: integer
+        default: 100
+    communityId:
+      name: communityId
+      in: path
+      required: true
+      description: UUID of the community.
+      schema:
+        type: string
+        format: uuid
+    offset:
+      name: offset
+      in: query
+      description: Number of records to skip for pagination.
+      required: false
+      schema:
+        type: integer
+        default: 0
+  schemas:
+    Community:
+      allOf:
+      - $ref: '#/components/schemas/DSpaceObject'
+      - type: object
+        properties:
+          logo:
+            nullable: true
+            $ref: '#/components/schemas/Bitstream'
+          parentCommunity:
+            nullable: true
+            $ref: '#/components/schemas/Community'
+          copyrightText:
+            type: string
+          introductoryText:
+            type: string
+          shortDescription:
+            type: string
+          sidebarText:
+            type: string
+          countItems:
+            type: integer
+          collections:
+            type: array
+            items:
+              $ref: '#/components/schemas/Collection'
+          subcommunities:
+            type: array
+            items:
+              $ref: '#/components/schemas/Community'
+    Bitstream:
+      allOf:
+      - $ref: '#/components/schemas/DSpaceObject'
+      - type: object
+        properties:
+          bundleName:
+            type: string
+          description:
+            type: string
+            nullable: true
+          format:
+            type: string
+          mimeType:
+            type: string
+          sizeBytes:
+            type: integer
+            format: int64
+          parentObject:
+            nullable: true
+            $ref: '#/components/schemas/Item'
+          retrieveLink:
+            type: string
+            description: Relative path to download the file content.
+          checkSum:
+            type: object
+            properties:
+              value:
+                type: string
+              checkSumAlgorithm:
+                type: string
+          sequenceId:
+            type: integer
+          policies:
+            type: array
+            nullable: true
+            items:
+              type: object
+    Item:
+      allOf:
+      - $ref: '#/components/schemas/DSpaceObject'
+      - type: object
+        properties:
+          lastModified:
+            type: string
+            description: Timestamp of the last modification.
+          archived:
+            type: boolean
+          withdrawn:
+            type: boolean
+          parentCollection:
+            nullable: true
+            $ref: '#/components/schemas/Collection'
+          parentCollectionList:
+            type: array
+            items:
+              $ref: '#/components/schemas/Collection'
+          metadata:
+            type: array
+            items:
+              $ref: '#/components/schemas/MetadataEntry'
+          bitstreams:
+            type: array
+            items:
+              $ref: '#/components/schemas/Bitstream'
+    DSpaceObject:
+      type: object
+      description: Common base fields shared by DSpace REST resources.
+      properties:
+        uuid:
+          type: string
+          format: uuid
+        name:
+          type: string
+        handle:
+          type: string
+          description: Persistent handle identifier (for example 2005/141).
+        type:
+          type: string
+        link:
+          type: string
+          description: Relative REST path to this resource.
+        expand:
+          type: array
+          items:
+            type: string
+    Collection:
+      allOf:
+      - $ref: '#/components/schemas/DSpaceObject'
+      - type: object
+        properties:
+          logo:
+            nullable: true
+            $ref: '#/components/schemas/Bitstream'
+          parentCommunity:
+            nullable: true
+            $ref: '#/components/schemas/Community'
+          parentCommunityList:
+            type: array
+            items:
+              $ref: '#/components/schemas/Community'
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Item'
+          license:
+            type: string
+            nullable: true
+          copyrightText:
+            type: string
+          introductoryText:
+            type: string
+          shortDescription:
+            type: string
+          sidebarText:
+            type: string
+          numberItems:
+            type: integer
+    MetadataEntry:
+      type: object
+      description: A single Dublin Core metadata field on an item.
+      properties:
+        key:
+          type: string
+          description: Qualified DC key (for example dc.contributor.advisor).
+        value:
+          type: string
+        language:
+          type: string
+          nullable: true
+        element:
+          type: string
+        qualifier:
+          type: string
+          nullable: true
+        schema:
+          type: string
