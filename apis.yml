@@ -12,9 +12,21 @@ description: >-
   official institutional GitHub org with public repositories or a documented REST API
   program.
 type: Index
+accessModel:
+  pricing: free
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Free
+  confidence: medium
+  source:
+  - plans
+  generated: '2026-07-22'
+  method: derived
 position: Consumer
 access: 3rd-Party
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/iisc.png
 url: https://raw.githubusercontent.com/api-evangelist/iisc/refs/heads/main/apis.yml
 tags:
   - Education
@@ -32,49 +44,125 @@ specificationVersion: '0.19'
 # API at https://etd.iisc.ac.in/rest (Communities/Collections/Items/Bitstreams,
 # JSON) plus an OAI-PMH endpoint at /oai/request. Full artifacts added below.
 apis:
-  - aid: iisc:eprints-oai
-    name: ePrints@IISc OAI-PMH
-    description: >-
-      ePrints@IISc is the open-access institutional repository of IISc research
-      publications, established in 2002 on EPrints software. It is OAI-compliant
-      and exposes an OAI-PMH metadata-harvesting interface at the standard EPrints
-      /cgi/oai2 path for indexing and metadata reuse. The repository is publicly
-      readable; deposit is restricted to the IISc research community. The live site
-      is fronted by an Azure Application Gateway that blocks automated requests, so
-      the OAI endpoint could not be programmatically verified during this review.
-    humanURL: https://eprints.iisc.ac.in/information.html
-    baseURL: https://eprints.iisc.ac.in/cgi/oai2
-    tags: [ Repository, OAI-PMH, Open Access, Metadata, Research ]
-    properties:
-      - type: Documentation
-        url: https://eprints.iisc.ac.in/information.html
-  - aid: iisc:etd-oai
-    name: ETD@IISc OAI-PMH
-    description: >-
-      ETD@IISc is the Electronic Theses and Dissertations repository of IISc, built
-      on DSpace and documented as ETD-MS and OAI-PMH compliant, exposing thesis
-      metadata for harvesting. The host returned an HTTP 502 during this review, so
-      the live OAI endpoint could not be confirmed.
-    humanURL: https://etd.iisc.ac.in/
-    baseURL: https://etd.iisc.ac.in/oai/request
-    tags: [ Repository, OAI-PMH, Theses, DSpace, Research, REST ]
-    properties:
-      - type: Documentation
-        url: https://etd.iisc.ac.in/
-      - type: OpenAPI
-        url: openapi/iisc-etd-rest.yaml
-      - type: x-json-schema
-        url: json-schema/iisc-item-schema.json
-      - type: x-json-structure
-        url: json-structure/iisc-item-structure.json
-      - type: x-examples
-        url: examples/iisc-listItems-example.json
-      - type: x-rules
-        url: rules/iisc-rules.yml
-      - type: x-vocabulary
-        url: vocabulary/iisc-vocabulary.yml
-      - type: x-json-ld
-        url: json-ld/iisc-context.jsonld
+- aid: iisc:eprints-oai
+  name: ePrints@IISc OAI-PMH
+  description: >-
+    ePrints@IISc is the open-access institutional repository of IISc research publications, established
+    in 2002 on EPrints software. It is OAI-compliant and exposes an OAI-PMH metadata-harvesting interface
+    at the standard EPrints /cgi/oai2 path for indexing and metadata reuse. The repository is publicly
+    readable; deposit is restricted to the IISc research community. The live site is fronted by an Azure
+    Application Gateway that blocks automated requests, so the OAI endpoint could not be programmatically
+    verified during this review.
+  humanURL: https://eprints.iisc.ac.in/information.html
+  baseURL: https://eprints.iisc.ac.in/cgi/oai2
+  tags:
+  - Repository
+  - OAI-PMH
+  - Open Access
+  - Metadata
+  - Research
+  properties:
+  - type: Documentation
+    url: https://eprints.iisc.ac.in/information.html
+- aid: iisc:iisc-bitstreams-api
+  name: Indian Institute of Science Bangalore Bitstreams API
+  description: >-
+    The Bitstreams API from Indian Institute of Science Bangalore — 2 operation(s) for bitstreams.
+  humanURL: https://eprints.iisc.ac.in/information.html
+  baseURL: https://eprints.iisc.ac.in/cgi/oai2
+  tags:
+  - Bitstreams
+  properties:
+  - type: OpenAPI
+    url: openapi/iisc-bitstreams-api-openapi.yml
+  - type: Documentation
+    url: https://etd.iisc.ac.in/
+  - type: x-json-schema
+    url: json-schema/iisc-item-schema.json
+  - type: x-json-structure
+    url: json-structure/iisc-item-structure.json
+  - type: x-examples
+    url: examples/iisc-listItems-example.json
+  - type: x-rules
+    url: rules/iisc-rules.yml
+  - type: x-vocabulary
+    url: vocabulary/iisc-vocabulary.yml
+  - type: x-json-ld
+    url: json-ld/iisc-context.jsonld
+- aid: iisc:iisc-collections-api
+  name: Indian Institute of Science Bangalore Collections API
+  description: >-
+    The Collections API from Indian Institute of Science Bangalore — 2 operation(s) for collections.
+  humanURL: https://eprints.iisc.ac.in/information.html
+  baseURL: https://eprints.iisc.ac.in/cgi/oai2
+  tags:
+  - Collections
+  properties:
+  - type: OpenAPI
+    url: openapi/iisc-collections-api-openapi.yml
+  - type: Documentation
+    url: https://etd.iisc.ac.in/
+  - type: x-json-schema
+    url: json-schema/iisc-item-schema.json
+  - type: x-json-structure
+    url: json-structure/iisc-item-structure.json
+  - type: x-examples
+    url: examples/iisc-listItems-example.json
+  - type: x-rules
+    url: rules/iisc-rules.yml
+  - type: x-vocabulary
+    url: vocabulary/iisc-vocabulary.yml
+  - type: x-json-ld
+    url: json-ld/iisc-context.jsonld
+- aid: iisc:iisc-communities-api
+  name: Indian Institute of Science Bangalore Communities API
+  description: >-
+    The Communities API from Indian Institute of Science Bangalore — 2 operation(s) for communities.
+  humanURL: https://eprints.iisc.ac.in/information.html
+  baseURL: https://eprints.iisc.ac.in/cgi/oai2
+  tags:
+  - Communities
+  properties:
+  - type: OpenAPI
+    url: openapi/iisc-communities-api-openapi.yml
+  - type: Documentation
+    url: https://etd.iisc.ac.in/
+  - type: x-json-schema
+    url: json-schema/iisc-item-schema.json
+  - type: x-json-structure
+    url: json-structure/iisc-item-structure.json
+  - type: x-examples
+    url: examples/iisc-listItems-example.json
+  - type: x-rules
+    url: rules/iisc-rules.yml
+  - type: x-vocabulary
+    url: vocabulary/iisc-vocabulary.yml
+  - type: x-json-ld
+    url: json-ld/iisc-context.jsonld
+- aid: iisc:iisc-items-api
+  name: Indian Institute of Science Bangalore Items API
+  description: The Items API from Indian Institute of Science Bangalore — 2 operation(s) for items.
+  humanURL: https://eprints.iisc.ac.in/information.html
+  baseURL: https://eprints.iisc.ac.in/cgi/oai2
+  tags:
+  - Items
+  properties:
+  - type: OpenAPI
+    url: openapi/iisc-items-api-openapi.yml
+  - type: Documentation
+    url: https://etd.iisc.ac.in/
+  - type: x-json-schema
+    url: json-schema/iisc-item-schema.json
+  - type: x-json-structure
+    url: json-structure/iisc-item-structure.json
+  - type: x-examples
+    url: examples/iisc-listItems-example.json
+  - type: x-rules
+    url: rules/iisc-rules.yml
+  - type: x-vocabulary
+    url: vocabulary/iisc-vocabulary.yml
+  - type: x-json-ld
+    url: json-ld/iisc-context.jsonld
 common:
   - type: AgenticAccess
     url: agentic-access/iisc-agentic-access.yml
