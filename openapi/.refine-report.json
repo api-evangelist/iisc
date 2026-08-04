@@ -1,0 +1,20 @@
+{
+  "provider": "iisc",
+  "sources": [
+    "iisc-bitstreams-api-openapi.yml",
+    "iisc-collections-api-openapi.yml",
+    "iisc-communities-api-openapi.yml",
+    "iisc-items-api-openapi.yml"
+  ],
+  "outputs": [
+    "iisc-bitstreams-api-openapi.yml",
+    "iisc-collections-api-openapi.yml",
+    "iisc-communities-api-openapi.yml",
+    "iisc-items-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
