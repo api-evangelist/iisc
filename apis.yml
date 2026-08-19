@@ -39,7 +39,7 @@ tags:
   - India
 created: '2026-06-03'
 modified: '2026-06-03'
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 # 2026-06-03: ETD@IISc is live on DSpace 6 and exposes a verified read-only REST
 # API at https://etd.iisc.ac.in/rest (Communities/Collections/Items/Bitstreams,
 # JSON) plus an OAI-PMH endpoint at /oai/request. Full artifacts added below.
