@@ -1,0 +1,68 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ETD@IISc DSpace REST Bitstreams API",
+    "version": "6.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Bitstreams",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List an item's bitstreams",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://etd.iisc.ac.in/rest/items/:itemId/bitstreams",
+            "params": [
+              {
+                "name": "itemId",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the item."
+              },
+              {
+                "name": "expand",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of sub-resources to inline in the response (for example metadata,bitstreams,collections,subcommunities)."
+              }
+            ]
+          },
+          "docs": "Returns the bitstreams (files) attached to an item."
+        },
+        {
+          "info": {
+            "name": "Get a bitstream",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://etd.iisc.ac.in/rest/bitstreams/:bitstreamId",
+            "params": [
+              {
+                "name": "bitstreamId",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the bitstream."
+              },
+              {
+                "name": "expand",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of sub-resources to inline in the response (for example metadata,bitstreams,collections,subcommunities)."
+              }
+            ]
+          },
+          "docs": "Get a bitstream"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,74 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ETD@IISc DSpace REST Bitstreams Communities API",
+    "version": "6.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Communities",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List communities",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://etd.iisc.ac.in/rest/communities",
+            "params": [
+              {
+                "name": "expand",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of sub-resources to inline in the response (for example metadata,bitstreams,collections,subcommunities)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination."
+              }
+            ]
+          },
+          "docs": "Returns the array of top-level and child communities in the repository."
+        },
+        {
+          "info": {
+            "name": "Get a community",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://etd.iisc.ac.in/rest/communities/:communityId",
+            "params": [
+              {
+                "name": "communityId",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the community."
+              },
+              {
+                "name": "expand",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of sub-resources to inline in the response (for example metadata,bitstreams,collections,subcommunities)."
+              }
+            ]
+          },
+          "docs": "Get a community"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

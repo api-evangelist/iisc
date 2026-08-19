@@ -1,0 +1,74 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ETD@IISc DSpace REST Bitstreams Items API",
+    "version": "6.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Items",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List items",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://etd.iisc.ac.in/rest/items",
+            "params": [
+              {
+                "name": "expand",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of sub-resources to inline in the response (for example metadata,bitstreams,collections,subcommunities)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination."
+              }
+            ]
+          },
+          "docs": "Returns archived items in the repository. Use the expand parameter to include metadata and bitstreams in each item."
+        },
+        {
+          "info": {
+            "name": "Get an item",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://etd.iisc.ac.in/rest/items/:itemId",
+            "params": [
+              {
+                "name": "itemId",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the item."
+              },
+              {
+                "name": "expand",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of sub-resources to inline in the response (for example metadata,bitstreams,collections,subcommunities)."
+              }
+            ]
+          },
+          "docs": "Get an item"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
