@@ -96,6 +96,8 @@ apis:
   humanURL: https://eprints.iisc.ac.in/information.html
   baseURL: https://eprints.iisc.ac.in/cgi/oai2
   tags:
+  - Collection
+  tags_raw:
   - Collections
   properties:
   - type: OpenAPI
@@ -145,6 +147,8 @@ apis:
   humanURL: https://eprints.iisc.ac.in/information.html
   baseURL: https://eprints.iisc.ac.in/cgi/oai2
   tags:
+  - Item
+  tags_raw:
   - Items
   properties:
   - type: OpenAPI
