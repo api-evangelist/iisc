@@ -180,6 +180,9 @@ apis:
   - type: x-json-ld
     url: json-ld/iisc-context.jsonld
 common:
+  - type: CapabilityMap
+    url: capabilities/iisc-capability-edges.yml
+    name: Indian Institute of Science Bangalore Business Capability Map
   - type: AgenticAccess
     url: agentic-access/iisc-agentic-access.yml
   - type: DomainSecurity
