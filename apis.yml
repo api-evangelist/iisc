@@ -1,16 +1,25 @@
 ---
 aid: iisc
 name: Indian Institute of Science Bangalore
+x-type: university
+x-category: Public Research University
 description: >-
-  The Indian Institute of Science (IISc) Bangalore is India's premier research-intensive
-  university, founded in 1909, and ranked #211 in the QS World University Rankings 2025.
-  IISc does not operate a formal, centralized public developer portal. Its confirmable
-  public machine-readable footprint is academic: the ePrints@IISc institutional repository
-  (EPrints software) exposes an OAI-PMH metadata interface, and the DSpace-based ETD@IISc
-  theses repository is likewise OAI-compliant. Individual labs and centres publish open
-  source on GitHub (for example cni-iisc, csl-iisc, val-iisc), but there is no single
-  official institutional GitHub org with public repositories or a documented REST API
-  program.
+  The Indian Institute of Science (IISc) Bangalore, founded 1909, is India's premier
+  research-intensive institution — a deemed university, an Institute of Eminence, and ranked
+  #211 in the QS World University Rankings 2025. It operates no developer portal, publishes no
+  OpenAPI of its own, and this profile does not pretend otherwise. What it does run, on hosts
+  under its own iisc.ac.in domain, are three verified institution-operated machine surfaces: a
+  Shibboleth SAML 2.0 identity provider at libraryidp.iisc.ac.in registered in the INFLIBNET
+  Access Management Federation (INFED) and carried into eduGAIN; an OAI-PMH 2.0 provider on the
+  Open Journal Systems instance behind the Journal of the Indian Institute of Science at
+  journal.iisc.ac.in; and a self-hosted Moodle LMS at courses.iisc.ac.in whose LTI 1.3 JWKS and
+  token-gated web-services REST endpoint are both live. Two older repository surfaces are
+  currently unreadable rather than absent — ETD@IISc (DSpace 6) has returned 502 on every path
+  since roughly May 2026, and ePrints@IISc sits behind an Azure WAF that 403s every automated
+  client including the Internet Archive. IISc is registered in ROR (04dese585) and the Crossref
+  Open Funder Registry (100007780) but is not a DataCite or Crossref member. Its public code
+  lives in departmental GitHub organisations (val-iisc, csl-iisc, cni-iisc), not in a central
+  institutional org — github.com/IISc exists but holds zero public repositories.
 type: Index
 deliveryModel:
   model: saas
@@ -44,129 +53,140 @@ tags:
   - Education
   - Higher Education
   - University
-  - Research
-  - Open Access
-  - Institutional Repository
-  - OAI-PMH
   - India
+  - Institute of Eminence
+  - Research
+  - Research Repository
+  - Open Access
+  - OAI-PMH
+  - Identity Federation
+  - Shibboleth
+  - Library
+  - Learning Management
+  - Research Computing
 created: '2026-06-03'
-modified: '2026-06-03'
+modified: '2026-09-01'
 specificationVersion: '0.23'
-# 2026-06-03: ETD@IISc is live on DSpace 6 and exposes a verified read-only REST
-# API at https://etd.iisc.ac.in/rest (Communities/Collections/Items/Bitstreams,
-# JSON) plus an OAI-PMH endpoint at /oai/request. Full artifacts added below.
 apis:
-- aid: iisc:eprints-oai
-  name: ePrints@IISc OAI-PMH
+- aid: iisc:identity-federation
+  name: IISc Shibboleth Identity Provider (INFED / eduGAIN)
+  x-operator: institution
   description: >-
-    ePrints@IISc is the open-access institutional repository of IISc research publications, established
-    in 2002 on EPrints software. It is OAI-compliant and exposes an OAI-PMH metadata-harvesting interface
-    at the standard EPrints /cgi/oai2 path for indexing and metadata reuse. The repository is publicly
-    readable; deposit is restricted to the IISc research community. The live site is fronted by an Azure
-    Application Gateway that blocks automated requests, so the OAI endpoint could not be programmatically
-    verified during this review.
-  humanURL: https://eprints.iisc.ac.in/information.html
-  baseURL: https://eprints.iisc.ac.in/cgi/oai2
+    Institution-operated Shibboleth SAML 2.0 identity provider, self-published as machine-readable
+    metadata on IISc's own host and registered in the INFLIBNET Access Management Federation
+    (INFED), which carries it into eduGAIN. Verified live 2026-09-01 — GET
+    https://libraryidp.iisc.ac.in/idp/shibboleth returns 200 application/xml, a 15,764-byte
+    EntityDescriptor with entityID https://libraryidp.iisc.ac.in/idp/shibboleth, mdui:DisplayName
+    "Indian Institute of Science, Bengaluru" and shibmd:Scope iisc.ac.in. It advertises
+    SingleSignOnService on HTTP-POST, HTTP-POST-SimpleSign, HTTP-Redirect and the Shibboleth
+    AuthnRequest binding, SingleLogoutService on four bindings, and SAML1/SAML2 SOAP AttributeQuery
+    on port 8443. The Redirect/SSO endpoint returns 400 "Stale Request" to a bare GET, which is a
+    running IdP rejecting a malformed AuthnRequest. The eduGAIN entity API returns exactly one IISc
+    entity (id 672727, regauth http://inflibnet.ac.in, code INFED, sirtfi_status 1, first seen
+    2020-04-12) and it appears in the eduGAIN aggregate. A federation is shared by definition; the
+    IdP behind it is IISc's own, and this is the strongest institution-operated machine surface the
+    institute has.
+  humanURL: https://infed.in/
+  baseURL: https://libraryidp.iisc.ac.in/idp/shibboleth
   tags:
-  - Repository
+  - Identity Federation
+  - SAML
+  - Shibboleth
+  - Single Sign-On
+  - Authentication
+  properties:
+  - type: APIReference
+    url: https://libraryidp.iisc.ac.in/idp/shibboleth
+  - type: Conformance
+    url: conformance/iisc-conformance.yml
+- aid: iisc:jiisc-oai
+  name: Journal of the Indian Institute of Science OAI-PMH
+  x-operator: institution
+  description: >-
+    Live OAI-PMH 2.0 metadata-harvesting provider for the Journal of the Indian Institute of
+    Science, served from IISc's own journal.iisc.ac.in host on an Open Journal Systems 3.3.0.22
+    (Public Knowledge Project) deployment. Verified live 2026-09-01 — verb=Identify returns 200
+    text/xml with repositoryName "Journal of the Indian Institute of Science", adminEmail
+    journal@apc.iisc.ernet.in, protocolVersion 2.0, earliestDatestamp 2012-12-07T00:50:21Z,
+    deletedRecord persistent, granularity YYYY-MM-DDThh:mm:ssZ and gzip/deflate compression;
+    verb=ListMetadataFormats returns 200 and verb=ListSets returns 200 with 51KB of real issue sets.
+    The OJS REST API on the same host is closed — /index.php/iisc/api/v1/issues returns 403
+    api.403.unauthorized. The OJS software and its contract are PKP's and no OJS spec is saved
+    under this institution; the deployment, the host, the journal and the metadata are IISc's.
+  humanURL: https://journal.iisc.ac.in/
+  baseURL: https://journal.iisc.ac.in/index.php/iisc/oai
+  tags:
   - OAI-PMH
   - Open Access
   - Metadata
-  - Research
+  - Scholarly Publishing
+  - Open Journal Systems
   properties:
   - type: Documentation
-    url: https://eprints.iisc.ac.in/information.html
-- aid: iisc:iisc-bitstreams-api
-  name: Indian Institute of Science Bangalore Bitstreams API
+    url: https://www.openarchives.org/OAI/openarchivesprotocol.html
+  - type: Conformance
+    url: conformance/iisc-conformance.yml
+- aid: iisc:courses-moodle
+  name: IKEN Moodle LMS — web services and LTI 1.3 platform
+  x-operator: institution
   description: >-
-    The Bitstreams API from Indian Institute of Science Bangalore — 2 operation(s) for bitstreams.
-  humanURL: https://eprints.iisc.ac.in/information.html
-  baseURL: https://eprints.iisc.ac.in/cgi/oai2
+    IISc's own learning management system, a self-hosted Moodle branded "IKEN" at
+    courses.iisc.ac.in, exposing two machine surfaces verified live 2026-09-01. The LTI 1.3
+    Advantage platform endpoints are public — GET /mod/lti/certs.php returns 200 application/json
+    with a real JWKS (RSA, RS256, kid ffa71c7514f167fc08f4) and /mod/lti/auth.php returns 200 —
+    which makes this a genuine, evidenced IMS LTI conformance surface on the institution's own
+    domain. The Moodle web-services REST endpoint at /webservice/rest/server.php is live and
+    token-gated, returning 200 application/json
+    {"exception":"moodle_exception","errorcode":"invalidtoken"} to a keyless call, and
+    /lib/ajax/service.php returns a structured Moodle JSON error. No token is issued to the public,
+    so no payload could be read and no contract has been generated to stand in for one: the Moodle
+    web-services contract is Moodle's product contract, shared by every deployment, and belongs in
+    Moodle's own repo rather than here. The deployment, the host and the courses are IISc's.
+  humanURL: https://courses.iisc.ac.in/
+  baseURL: https://courses.iisc.ac.in/webservice/rest/server.php
   tags:
-  - Bitstreams
+  - Course Catalog
+  - Learning Management
+  - Moodle
+  - LTI
+  - Authentication
   properties:
-  - type: OpenAPI
-    url: openapi/iisc-bitstreams-api-openapi.yml
-  - type: Documentation
-    url: https://etd.iisc.ac.in/
-  - type: x-json-schema
-    url: json-schema/iisc-item-schema.json
-  - type: x-json-structure
-    url: json-structure/iisc-item-structure.json
-  - type: x-examples
-    url: examples/iisc-listItems-example.json
-  - type: x-rules
-    url: rules/iisc-rules.yml
-  - type: x-vocabulary
-    url: vocabulary/iisc-vocabulary.yml
-  - type: x-json-ld
-    url: json-ld/iisc-context.jsonld
-- aid: iisc:iisc-collections-api
-  name: Indian Institute of Science Bangalore Collections API
+  - type: APIReference
+    url: https://courses.iisc.ac.in/mod/lti/certs.php
+  - type: Conformance
+    url: conformance/iisc-conformance.yml
+- aid: iisc:etd-dspace-rest
+  name: ETD@IISc DSpace 6 REST API
+  x-operator: institution
   description: >-
-    The Collections API from Indian Institute of Science Bangalore — 2 operation(s) for collections.
-  humanURL: https://eprints.iisc.ac.in/information.html
-  baseURL: https://eprints.iisc.ac.in/cgi/oai2
+    Read-only REST API of ETD@IISc, the Electronic Theses and Dissertations repository IISc runs on
+    DSpace 6 at its own etd.iisc.ac.in host, serving the Community / Collection / Item / Bitstream
+    hierarchy as JSON. HOST CURRENTLY DEAD — re-probed 2026-09-01 with a browser User-Agent, every
+    path (/, /rest, /rest/communities, /rest/items, /handle/2005/1, /oai/request) returns HTTP 502
+    with a 165-byte "The website is under maintenance" body on three consecutive attempts, and the
+    Internet Archive holds no successful capture after 2026-05-16. The four OpenAPI documents below
+    were written by API Evangelist against the documented DSpace 6 contract and confirmed against
+    the live host during the 2026-06-03 enrichment run; they are stamped x-method generated with an
+    x-host-status block recording the 502, and are retained as the record of an institution-operated
+    deployment rather than as a callable surface. This single entry replaces the four separate
+    apis[] records the tag split had created, which reported one deployment as four APIs.
+  humanURL: https://library.iisc.ac.in/
+  baseURL: https://etd.iisc.ac.in/rest
   tags:
-  - Collection
-  tags_raw:
-  - Collections
-  properties:
-  - type: OpenAPI
-    url: openapi/iisc-collections-api-openapi.yml
-  - type: Documentation
-    url: https://etd.iisc.ac.in/
-  - type: x-json-schema
-    url: json-schema/iisc-item-schema.json
-  - type: x-json-structure
-    url: json-structure/iisc-item-structure.json
-  - type: x-examples
-    url: examples/iisc-listItems-example.json
-  - type: x-rules
-    url: rules/iisc-rules.yml
-  - type: x-vocabulary
-    url: vocabulary/iisc-vocabulary.yml
-  - type: x-json-ld
-    url: json-ld/iisc-context.jsonld
-- aid: iisc:iisc-communities-api
-  name: Indian Institute of Science Bangalore Communities API
-  description: >-
-    The Communities API from Indian Institute of Science Bangalore — 2 operation(s) for communities.
-  humanURL: https://eprints.iisc.ac.in/information.html
-  baseURL: https://eprints.iisc.ac.in/cgi/oai2
-  tags:
-  - Communities
+  - Research Repository
+  - DSpace
+  - Theses
+  - Open Access
+  - Metadata
   properties:
   - type: OpenAPI
     url: openapi/iisc-communities-api-openapi.yml
-  - type: Documentation
-    url: https://etd.iisc.ac.in/
-  - type: x-json-schema
-    url: json-schema/iisc-item-schema.json
-  - type: x-json-structure
-    url: json-structure/iisc-item-structure.json
-  - type: x-examples
-    url: examples/iisc-listItems-example.json
-  - type: x-rules
-    url: rules/iisc-rules.yml
-  - type: x-vocabulary
-    url: vocabulary/iisc-vocabulary.yml
-  - type: x-json-ld
-    url: json-ld/iisc-context.jsonld
-- aid: iisc:iisc-items-api
-  name: Indian Institute of Science Bangalore Items API
-  description: The Items API from Indian Institute of Science Bangalore — 2 operation(s) for items.
-  humanURL: https://eprints.iisc.ac.in/information.html
-  baseURL: https://eprints.iisc.ac.in/cgi/oai2
-  tags:
-  - Item
-  tags_raw:
-  - Items
-  properties:
+  - type: OpenAPI
+    url: openapi/iisc-collections-api-openapi.yml
   - type: OpenAPI
     url: openapi/iisc-items-api-openapi.yml
-  - type: Documentation
-    url: https://etd.iisc.ac.in/
+  - type: OpenAPI
+    url: openapi/iisc-bitstreams-api-openapi.yml
   - type: x-json-schema
     url: json-schema/iisc-item-schema.json
   - type: x-json-structure
@@ -179,7 +199,100 @@ apis:
     url: vocabulary/iisc-vocabulary.yml
   - type: x-json-ld
     url: json-ld/iisc-context.jsonld
+- aid: iisc:eprints-oai
+  name: ePrints@IISc OAI-PMH
+  x-operator: institution
+  description: >-
+    ePrints@IISc is the open-access institutional repository of IISc research publications,
+    established in 2002 on EPrints software and self-hosted on the institute's own
+    eprints.iisc.ac.in domain. It is OAI-compliant and advertises the standard EPrints OAI-PMH
+    interface at /cgi/oai2. UNVERIFIABLE, NOT ABSENT — the host sits behind an Azure Web
+    Application Firewall which returned 403 with an "Azure WAF" body to every automated client
+    tried on 2026-09-01 (Chrome on macOS, Chrome on Windows, Googlebot and bare curl), and the
+    Internet Archive's own 2026 captures (2026-01-14, 2026-02-26) also recorded 403. The repository
+    remains readable to human browsers; no OAI-PMH response body has ever been read, so this is
+    recorded as an unverified surface and is not counted as an OAI-PMH conformance hit.
+  humanURL: https://library.iisc.ac.in/
+  baseURL: https://eprints.iisc.ac.in/cgi/oai2
+  tags:
+  - Research Repository
+  - OAI-PMH
+  - EPrints
+  - Open Access
+  - Metadata
+  properties:
+  - type: Documentation
+    url: https://www.openarchives.org/OAI/openarchivesprotocol.html
+- aid: iisc:ror-registration
+  name: ROR registration — Indian Institute of Science
+  x-operator: registry
+  description: >-
+    IISc is registered in the Research Organization Registry as https://ror.org/04dese585. Verified
+    2026-09-01 — https://api.ror.org/organizations/04dese585 returns 200 with names "Indian
+    Institute of Science" / "IISc", established 1909, domains ["iisc.ac.in"], and external ids
+    grid.34980.36, ISNI 0000 0001 0482 5067, Wikidata Q948720 and Crossref Funder ids 100007780,
+    100008044 and 100007871; last modified 2026-08-25. ROR is an identifier registry IISc is
+    registered in — a fact about the institution — and ROR's own contract is not saved here.
+  humanURL: https://ror.org/04dese585
+  baseURL: https://api.ror.org/organizations/04dese585
+  tags:
+  - Registry
+  - Identifiers
+  - ROR
+  - Research
+  properties:
+  - type: Registry
+    url: https://ror.org/04dese585
+- aid: iisc:crossref-funder-registry
+  name: Crossref Open Funder Registry entry — Indian Institute of Science
+  x-operator: registry
+  description: >-
+    IISc holds Crossref Open Funder Registry id 100007780. Verified 2026-09-01 —
+    https://api.crossref.org/funders/100007780 returns 200 naming "Indian Institute of Science"
+    with a hierarchy of its own centres including the Center for Infrastructure, Sustainable
+    Transportation and Urban Planning (100008044) and the Indo-French Centre for Applied
+    Mathematics (100009935). This is a funder-registry membership, not Crossref DOI-deposit
+    membership — https://api.crossref.org/members?query=Indian+Institute+of+Science returns
+    total-results 0 — and it is recorded rather than scored as crossref conformance.
+  humanURL: https://www.crossref.org/services/funder-registry/
+  baseURL: https://api.crossref.org/funders/100007780
+  tags:
+  - Registry
+  - Identifiers
+  - Crossref
+  - Funding
+  properties:
+  - type: Registry
+    url: https://api.crossref.org/funders/100007780
 common:
+  - type: Website
+    url: https://iisc.ac.in/
+  - type: Library
+    url: https://library.iisc.ac.in/
+  - type: LibraryCatalog
+    url: https://libraryopac.iisc.ac.in/
+  - type: ResearchRepository
+    url: https://eprints.iisc.ac.in/
+  - type: IdentityFederation
+    url: https://libraryidp.iisc.ac.in/idp/shibboleth
+  - type: CourseCatalog
+    url: https://courses.iisc.ac.in/
+  - type: ResearchComputing
+    url: https://www.serc.iisc.ac.in/
+  - type: APIReference
+    url: https://journal.iisc.ac.in/index.php/iisc/oai?verb=Identify
+  - type: Documentation
+    url: https://iisc.ac.in/academics/
+  - type: SourceCode
+    url: https://github.com/val-iisc
+  - type: SourceCode
+    url: https://github.com/csl-iisc
+  - type: SourceCode
+    url: https://github.com/cni-iisc
+  - type: LinkedIn
+    url: https://www.linkedin.com/school/indian-institute-of-science/
+  - type: Conformance
+    url: conformance/iisc-conformance.yml
   - type: CapabilityMap
     url: capabilities/iisc-capability-edges.yml
     name: Indian Institute of Science Bangalore Business Capability Map
@@ -187,14 +300,6 @@ common:
     url: agentic-access/iisc-agentic-access.yml
   - type: DomainSecurity
     url: security/iisc-domain-security.yml
-  - type: Website
-    url: https://iisc.ac.in/
-  - type: Library
-    url: https://library.iisc.ac.in/
-  - type: GitHub
-    url: https://github.com/IISc
-  - type: LinkedIn
-    url: https://www.linkedin.com/school/indian-institute-of-science/
   - type: Plans
     url: plans/iisc-plans-pricing.yml
   - type: RateLimits
@@ -203,6 +308,109 @@ common:
     url: finops/iisc-finops.yml
   - type: Review
     url: review.yml
+x-coverage:
+  state: covered
+  reason: covered
+  detail: >-
+    Three institution-operated machine surfaces were found and verified live on 2026-09-01, all on
+    hosts under IISc's own iisc.ac.in domain — a Shibboleth SAML 2.0 identity provider at
+    libraryidp.iisc.ac.in registered in INFED and carried into eduGAIN, an OAI-PMH 2.0 provider on
+    the Open Journal Systems instance at journal.iisc.ac.in, and a self-hosted Moodle LMS at
+    courses.iisc.ac.in exposing a public LTI 1.3 JWKS and a token-gated web-services REST endpoint.
+    Four education-regime domain standards are evidenced from public endpoints — shibboleth, saml,
+    oai-pmh and lti — and eight are recorded as not conformant with the negative probe that
+    established each. Two repository surfaces are unreadable rather than absent and are reported as
+    such rather than deleted: ETD@IISc (DSpace 6) has returned 502 on every path since roughly
+    2026-05-16, and ePrints@IISc is 403 behind an Azure WAF to every automated client including the
+    Internet Archive. No vendor or tenant relationship was found anywhere on IISc's surface — no
+    Figshare, Pure, Ex Libris, Dataverse or Symplectic tenancy exists — so this profile records
+    none; every surface here is institution-operated or a registry the institute is registered in
+    (ROR 04dese585, Crossref Open Funder Registry 100007780). IISc is not a DataCite or Crossref
+    member and no institutional ORCID integration is publicly evidenced. There is no developer
+    portal, no llms.txt, no security.txt, no sitemap.xml and no public WordPress REST API
+    (iisc.ac.in/wp-json returns 401 rest_not_logged_in); the four DSpace OpenAPIs in this repo were
+    written by API Evangelist and are stamped as such. github.com/IISc is a real organisation with
+    zero public repositories and has been dropped as a pointer in favour of the three departmental
+    orgs that actually publish code.
+  generated: '2026-09-01'
+  method: probed
+  evidence:
+    - url: https://libraryidp.iisc.ac.in/idp/shibboleth
+      status: 200
+    - url: https://libraryidp.iisc.ac.in/idp/profile/SAML2/Redirect/SSO
+      status: 400
+    - url: https://libraryidp.iisc.ac.in/idp/status
+      status: 403
+    - url: https://technical.edugain.org/api.php?action=list_entities
+      status: 200
+    - url: https://mds.edugain.org/edugain-v2.xml
+      status: 200
+    - url: https://journal.iisc.ac.in/index.php/iisc/oai?verb=Identify
+      status: 200
+    - url: https://journal.iisc.ac.in/index.php/iisc/oai?verb=ListMetadataFormats
+      status: 200
+    - url: https://journal.iisc.ac.in/index.php/iisc/oai?verb=ListSets
+      status: 200
+    - url: https://journal.iisc.ac.in/index.php/iisc/api/v1/issues
+      status: 403
+    - url: https://courses.iisc.ac.in/
+      status: 200
+    - url: https://courses.iisc.ac.in/mod/lti/certs.php
+      status: 200
+    - url: https://courses.iisc.ac.in/mod/lti/auth.php
+      status: 200
+    - url: https://courses.iisc.ac.in/webservice/rest/server.php
+      status: 200
+    - url: https://courses.iisc.ac.in/enrol/lti/
+      status: 404
+    - url: https://etd.iisc.ac.in/rest/communities
+      status: 502
+    - url: https://etd.iisc.ac.in/rest/items
+      status: 502
+    - url: https://etd.iisc.ac.in/oai/request?verb=Identify
+      status: 502
+    - url: https://etd.iisc.ac.in/handle/2005/1
+      status: 502
+    - url: https://eprints.iisc.ac.in/cgi/oai2?verb=Identify
+      status: 403
+    - url: https://eprints.iisc.ac.in/
+      status: 403
+    - url: https://libraryopac.iisc.ac.in/
+      status: 200
+    - url: https://library.iisc.ac.in/
+      status: 200
+    - url: https://www.serc.iisc.ac.in/
+      status: 200
+    - url: https://iisc.ac.in/
+      status: 200
+    - url: https://iisc.ac.in/academics/
+      status: 200
+    - url: https://www.iisc.ac.in/wp-json/wp/v2/posts?per_page=1
+      status: 401
+    - url: https://iisc.ac.in/llms.txt
+      status: 404
+    - url: https://iisc.ac.in/.well-known/security.txt
+      status: 404
+    - url: https://iisc.ac.in/sitemap.xml
+      status: 404
+    - url: https://api.ror.org/organizations/04dese585
+      status: 200
+    - url: https://api.crossref.org/funders/100007780
+      status: 200
+    - url: https://api.crossref.org/members?query=Indian+Institute+of+Science
+      status: 200
+    - url: https://api.datacite.org/providers?query=Indian%20Institute%20of%20Science
+      status: 200
+    - url: https://api.datacite.org/clients?query=iisc
+      status: 200
+    - url: https://api.github.com/users/IISc
+      status: 200
+    - url: https://github.com/val-iisc
+      status: 200
+    - url: https://github.com/csl-iisc
+      status: 200
+    - url: https://github.com/cni-iisc
+      status: 200
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
