@@ -92,6 +92,12 @@ apis:
   - Identity Federation
   - SAML
   - Shibboleth
+  - SSO
+  - Authentication
+  tags_raw:
+  - Identity Federation
+  - SAML
+  - Shibboleth
   - Single Sign-On
   - Authentication
   properties:
