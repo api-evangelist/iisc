@@ -1,3 +1,21 @@
+x-generated: '2026-09-01'
+x-method: generated
+x-source: >-
+  API Evangelist-authored. Modelled on the documented DSpace 6 REST contract and confirmed
+  against https://etd.iisc.ac.in/rest during the 2026-06-03 enrichment run. IISc publishes no
+  machine-readable OpenAPI of its own; this is our description of its DSpace deployment, not a
+  provider-published artifact. Re-probed 2026-09-01: host returns 502 (see info.description).
+x-host-status:
+  probed: '2026-09-01'
+  url: https://etd.iisc.ac.in/rest
+  status: 502
+  method: probed
+  detail: >-
+    Re-probed 2026-09-01 with a browser User-Agent. Every path on etd.iisc.ac.in — /, /rest,
+    /rest/communities, /rest/items, /handle/2005/1 and /oai/request — returns HTTP 502 with a
+    165-byte "The website is under maintenance" body, on three consecutive attempts. The Internet
+    Archive holds no successful capture of the host after 2026-05-16. This contract is retained as
+    the record of an institution-operated DSpace 6 deployment, not as a currently callable surface.
 openapi: 3.0.3
 info:
   title: ETD@IISc DSpace REST API

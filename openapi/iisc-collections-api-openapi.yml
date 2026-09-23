@@ -1,7 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: ETD@IISc DSpace REST Bitstreams Collections API
-  description: Read-only machine-readable REST API exposed by the ETD@IISc Electronic Theses and Dissertations repository, which runs on DSpace 6. The API serves the repository's Community / Collection / Item / Bitstream hierarchy as JSON. Paths and object schemas in this document were confirmed live against https://etd.iisc.ac.in/rest during enrichment (verb-less GET endpoints returning real JSON). Only endpoints and fields actually observed or part of the documented DSpace 6 REST contract are included. Write/authenticated endpoints are out of scope for this public read profile.
+  title: ETD@IISc DSpace REST Collections API
+  description: Read-only machine-readable REST API exposed by the ETD@IISc Electronic Theses and Dissertations repository, which runs on DSpace 6.
   version: '6.0'
   contact:
     name: API Evangelist
@@ -55,21 +55,6 @@ components:
     NotFound:
       description: The requested resource was not found.
   parameters:
-    expand:
-      name: expand
-      in: query
-      description: Comma-separated list of sub-resources to inline in the response (for example metadata,bitstreams,collections,subcommunities).
-      required: false
-      schema:
-        type: string
-    limit:
-      name: limit
-      in: query
-      description: Maximum number of records to return.
-      required: false
-      schema:
-        type: integer
-        default: 100
     collectionId:
       name: collectionId
       in: path
@@ -78,6 +63,14 @@ components:
       schema:
         type: string
         format: uuid
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of records to return.
+      required: false
+      schema:
+        type: integer
+        default: 100
     offset:
       name: offset
       in: query
@@ -86,18 +79,56 @@ components:
       schema:
         type: integer
         default: 0
+    expand:
+      name: expand
+      in: query
+      description: Comma-separated list of sub-resources to inline in the response (for example metadata,bitstreams,collections,subcommunities).
+      required: false
+      schema:
+        type: string
   schemas:
-    Community:
+    MetadataEntry:
+      type: object
+      description: A single Dublin Core metadata field on an item.
+      properties:
+        key:
+          type: string
+          description: Qualified DC key (for example dc.contributor.advisor).
+        value:
+          type: string
+        language:
+          type:
+          - string
+          - 'null'
+        element:
+          type: string
+        qualifier:
+          type:
+          - string
+          - 'null'
+        schema:
+          type: string
+    Collection:
       allOf:
       - $ref: '#/components/schemas/DSpaceObject'
       - type: object
         properties:
           logo:
-            nullable: true
             $ref: '#/components/schemas/Bitstream'
           parentCommunity:
-            nullable: true
             $ref: '#/components/schemas/Community'
+          parentCommunityList:
+            type: array
+            items:
+              $ref: '#/components/schemas/Community'
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Item'
+          license:
+            type:
+            - string
+            - 'null'
           copyrightText:
             type: string
           introductoryText:
@@ -106,80 +137,8 @@ components:
             type: string
           sidebarText:
             type: string
-          countItems:
+          numberItems:
             type: integer
-          collections:
-            type: array
-            items:
-              $ref: '#/components/schemas/Collection'
-          subcommunities:
-            type: array
-            items:
-              $ref: '#/components/schemas/Community'
-    Bitstream:
-      allOf:
-      - $ref: '#/components/schemas/DSpaceObject'
-      - type: object
-        properties:
-          bundleName:
-            type: string
-          description:
-            type: string
-            nullable: true
-          format:
-            type: string
-          mimeType:
-            type: string
-          sizeBytes:
-            type: integer
-            format: int64
-          parentObject:
-            nullable: true
-            $ref: '#/components/schemas/Item'
-          retrieveLink:
-            type: string
-            description: Relative path to download the file content.
-          checkSum:
-            type: object
-            properties:
-              value:
-                type: string
-              checkSumAlgorithm:
-                type: string
-          sequenceId:
-            type: integer
-          policies:
-            type: array
-            nullable: true
-            items:
-              type: object
-    Item:
-      allOf:
-      - $ref: '#/components/schemas/DSpaceObject'
-      - type: object
-        properties:
-          lastModified:
-            type: string
-            description: Timestamp of the last modification.
-          archived:
-            type: boolean
-          withdrawn:
-            type: boolean
-          parentCollection:
-            nullable: true
-            $ref: '#/components/schemas/Collection'
-          parentCollectionList:
-            type: array
-            items:
-              $ref: '#/components/schemas/Collection'
-          metadata:
-            type: array
-            items:
-              $ref: '#/components/schemas/MetadataEntry'
-          bitstreams:
-            type: array
-            items:
-              $ref: '#/components/schemas/Bitstream'
     DSpaceObject:
       type: object
       description: Common base fields shared by DSpace REST resources.
@@ -201,28 +160,79 @@ components:
           type: array
           items:
             type: string
-    Collection:
+    Bitstream:
+      allOf:
+      - $ref: '#/components/schemas/DSpaceObject'
+      - type: object
+        properties:
+          bundleName:
+            type: string
+          description:
+            type:
+            - string
+            - 'null'
+          format:
+            type: string
+          mimeType:
+            type: string
+          sizeBytes:
+            type: integer
+            format: int64
+          parentObject:
+            $ref: '#/components/schemas/Item'
+          retrieveLink:
+            type: string
+            description: Relative path to download the file content.
+          checkSum:
+            type: object
+            properties:
+              value:
+                type: string
+              checkSumAlgorithm:
+                type: string
+          sequenceId:
+            type: integer
+          policies:
+            type:
+            - array
+            - 'null'
+            items:
+              type: object
+    Item:
+      allOf:
+      - $ref: '#/components/schemas/DSpaceObject'
+      - type: object
+        properties:
+          lastModified:
+            type: string
+            description: Timestamp of the last modification.
+          archived:
+            type: boolean
+          withdrawn:
+            type: boolean
+          parentCollection:
+            $ref: '#/components/schemas/Collection'
+          parentCollectionList:
+            type: array
+            items:
+              $ref: '#/components/schemas/Collection'
+          metadata:
+            type: array
+            items:
+              $ref: '#/components/schemas/MetadataEntry'
+          bitstreams:
+            type: array
+            items:
+              $ref: '#/components/schemas/Bitstream'
+    Community:
       allOf:
       - $ref: '#/components/schemas/DSpaceObject'
       - type: object
         properties:
           logo:
-            nullable: true
             $ref: '#/components/schemas/Bitstream'
           parentCommunity:
-            nullable: true
             $ref: '#/components/schemas/Community'
-          parentCommunityList:
-            type: array
-            items:
-              $ref: '#/components/schemas/Community'
-          items:
-            type: array
-            items:
-              $ref: '#/components/schemas/Item'
-          license:
-            type: string
-            nullable: true
           copyrightText:
             type: string
           introductoryText:
@@ -231,24 +241,22 @@ components:
             type: string
           sidebarText:
             type: string
-          numberItems:
+          countItems:
             type: integer
-    MetadataEntry:
-      type: object
-      description: A single Dublin Core metadata field on an item.
-      properties:
-        key:
-          type: string
-          description: Qualified DC key (for example dc.contributor.advisor).
-        value:
-          type: string
-        language:
-          type: string
-          nullable: true
-        element:
-          type: string
-        qualifier:
-          type: string
-          nullable: true
-        schema:
-          type: string
+          collections:
+            type: array
+            items:
+              $ref: '#/components/schemas/Collection'
+          subcommunities:
+            type: array
+            items:
+              $ref: '#/components/schemas/Community'
+x-generated: '2026-09-01'
+x-method: generated
+x-source: 'API Evangelist-authored. Modelled on the documented DSpace 6 REST contract and confirmed against https://etd.iisc.ac.in/rest during the 2026-06-03 enrichment run. IISc publishes no machine-readable OpenAPI of its own; this is our description of its DSpace deployment, not a provider-published artifact. Re-probed 2026-09-01: host returns 502 (see info.description).'
+x-host-status:
+  probed: '2026-09-01'
+  url: https://etd.iisc.ac.in/rest
+  status: 502
+  method: probed
+  detail: Re-probed 2026-09-01 with a browser User-Agent. Every path on etd.iisc.ac.in — /, /rest, /rest/communities, /rest/items, /handle/2005/1 and /oai/request — returns HTTP 502 with a 165-byte "The website is under maintenance" body, on three consecutive attempts. The Internet Archive holds no successful capture of the host after 2026-05-16. This contract is retained as the record of an institution-operated DSpace 6 deployment, not as a currently callable surface.

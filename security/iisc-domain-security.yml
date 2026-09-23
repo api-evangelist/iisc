@@ -1,3 +1,6 @@
+# x-generated: '2026-09-01'
+# x-method: probed
+# x-source: 0-working/probe-domain-security.py against iisc.ac.in
 generated: '2026-07-11'
 method: probed
 source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts

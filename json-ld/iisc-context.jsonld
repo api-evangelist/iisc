@@ -5,19 +5,16 @@
     "dc": "http://purl.org/dc/terms/",
     "iisc": "https://etd.iisc.ac.in/vocab#",
     "@vocab": "https://etd.iisc.ac.in/vocab#",
-
     "institution": {
       "@id": "schema:CollegeOrUniversity",
       "@type": "@id"
     },
     "name": "schema:name",
     "url": "schema:url",
-
     "Community": "iisc:Community",
     "Collection": "schema:Collection",
     "Item": "schema:Thesis",
     "Bitstream": "schema:MediaObject",
-
     "uuid": "schema:identifier",
     "handle": "dc:identifier",
     "type": "@type",
@@ -29,17 +26,18 @@
     "issued": "dc:issued",
     "subject": "dc:subject",
     "abstract": "dc:abstract",
-
     "mimeType": "schema:encodingFormat",
     "sizeBytes": "schema:contentSize",
     "retrieveLink": "schema:contentUrl",
-
     "countItems": "schema:numberOfItems",
     "numberItems": "schema:numberOfItems",
     "collections": "schema:hasPart",
     "subcommunities": "schema:hasPart",
     "metadata": "schema:additionalProperty"
   },
+  "x-generated": "2026-09-01",
+  "x-method": "derived",
+  "x-source": "openapi/_original/iisc-etd-rest.yaml \u2014 JSON-LD context for the DSpace 6 Community/Collection/Item/Bitstream vocabulary",
   "@type": "schema:CollegeOrUniversity",
   "name": "Indian Institute of Science Bangalore",
   "url": "https://iisc.ac.in/",

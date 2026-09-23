@@ -1,25 +1,80 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
+  "x-generated": "2026-09-01",
+  "x-method": "derived",
+  "x-source": "openapi/iisc-communities-api-openapi.yml#/components/schemas/Community",
   "$id": "https://raw.githubusercontent.com/api-evangelist/iisc/main/json-schema/iisc-community-schema.json",
   "title": "ETD@IISc Community",
   "description": "A community (organizational unit) in the ETD@IISc DSpace REST API.",
   "type": "object",
-  "required": ["uuid", "name", "handle", "type"],
+  "required": [
+    "uuid",
+    "name",
+    "handle",
+    "type"
+  ],
   "properties": {
-    "uuid": { "type": "string", "format": "uuid" },
-    "name": { "type": "string" },
-    "handle": { "type": "string" },
-    "type": { "type": "string", "const": "community" },
-    "link": { "type": "string" },
-    "expand": { "type": "array", "items": { "type": "string" } },
-    "logo": { "type": ["object", "null"] },
-    "parentCommunity": { "type": ["object", "null"] },
-    "copyrightText": { "type": "string" },
-    "introductoryText": { "type": "string" },
-    "shortDescription": { "type": "string" },
-    "sidebarText": { "type": "string" },
-    "countItems": { "type": "integer" },
-    "collections": { "type": "array", "items": { "type": "object" } },
-    "subcommunities": { "type": "array", "items": { "type": "object" } }
+    "uuid": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "name": {
+      "type": "string"
+    },
+    "handle": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string",
+      "const": "community"
+    },
+    "link": {
+      "type": "string"
+    },
+    "expand": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "logo": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "parentCommunity": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "copyrightText": {
+      "type": "string"
+    },
+    "introductoryText": {
+      "type": "string"
+    },
+    "shortDescription": {
+      "type": "string"
+    },
+    "sidebarText": {
+      "type": "string"
+    },
+    "countItems": {
+      "type": "integer"
+    },
+    "collections": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "subcommunities": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    }
   }
 }

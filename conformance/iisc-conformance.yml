@@ -1,0 +1,173 @@
+generated: '2026-09-01'
+method: probed
+source: >-
+  Live probes of Indian Institute of Science hosts on 2026-09-01 with a browser User-Agent, plus
+  the eduGAIN entity API and metadata aggregate (mds.edugain.org/edugain-v2.xml), the ROR REST
+  API, the Crossref REST API and the DataCite REST API.
+docs: https://library.iisc.ac.in/
+note: >-
+  Conformance against the Kin Score `education` regime standards[]. Every entry below was reached by
+  fetching the named URL and reading the response body — none is a prose claim from an IISc web
+  page. Standards IISc does not publicly expose are recorded as conforms:false with the negative
+  probe that established it, and none is inferred from the mere presence of a product. All positive
+  entries are on hosts under IISc's own registrable domain iisc.ac.in; no vendor or tenant surface
+  was used as conformance evidence for this institution.
+standards:
+- id: shibboleth
+  conforms: true
+  operator: institution
+  evidence: >-
+    Institution-operated Shibboleth Identity Provider. GET
+    https://libraryidp.iisc.ac.in/idp/shibboleth returns 200 application/xml — a 15,764-byte SAML 2.0
+    EntityDescriptor self-published on IISc's own host, entityID
+    https://libraryidp.iisc.ac.in/idp/shibboleth, mdui:DisplayName "Indian Institute of Science,
+    Bengaluru", shibmd:Scope iisc.ac.in, with IDPSSODescriptor and AttributeAuthorityDescriptor
+    roles and protocolSupportEnumeration covering SAML 2.0, SAML 1.1 and urn:mace:shibboleth:1.0.
+    GET https://libraryidp.iisc.ac.in/idp/profile/SAML2/Redirect/SSO returns 400 "Web Login Service
+    - Stale Request", which is a live Shibboleth IdP correctly rejecting a parameterless
+    AuthnRequest; /idp/status returns 403 (access-restricted, i.e. running). The entity is
+    registered in the eduGAIN interfederation via INFED, the INFLIBNET Access Management Federation
+    (registrationAuthority http://inflibnet.ac.in, federation code INFED, id 672727, first seen
+    2020-04-12, sirtfi_status 1, eccs_status 1) and appears 13 times in the eduGAIN aggregate
+    https://mds.edugain.org/edugain-v2.xml (93,191,945 bytes, fetched 2026-09-01).
+- id: saml
+  conforms: true
+  operator: institution
+  evidence: >-
+    SAML 2.0 endpoints published in the IdP's own metadata at
+    https://libraryidp.iisc.ac.in/idp/shibboleth — SingleSignOnService on HTTP-POST
+    (/idp/profile/SAML2/POST/SSO), HTTP-POST-SimpleSign (/idp/profile/SAML2/POST-SimpleSign/SSO),
+    HTTP-Redirect (/idp/profile/SAML2/Redirect/SSO) and the Shibboleth AuthnRequest binding
+    (/idp/profile/Shibboleth/SSO); SingleLogoutService on Redirect, POST, POST-SimpleSign and SOAP
+    (port 8443); AttributeService for SAML1 and SAML2 SOAP AttributeQuery on port 8443. Exactly one
+    IISc entity is present in the eduGAIN aggregate — no second, test or staging entity was found,
+    so no placeholder had to be excluded.
+- id: oai-pmh
+  conforms: true
+  operator: institution
+  evidence: >-
+    Live OAI-PMH 2.0 provider on an IISc host. GET
+    https://journal.iisc.ac.in/index.php/iisc/oai?verb=Identify returns 200 text/xml with
+    repositoryName "Journal of the Indian Institute of Science", baseURL
+    https://journal.iisc.ac.in/index.php/iisc/oai, protocolVersion 2.0, adminEmail
+    journal@apc.iisc.ernet.in, earliestDatestamp 2012-12-07T00:50:21Z, deletedRecord persistent,
+    granularity YYYY-MM-DDThh:mm:ssZ, gzip/deflate compression, and a toolkit block naming Open
+    Journal Systems 3.3.0.22 (Public Knowledge Project). verb=ListMetadataFormats returns 200
+    (1,518 bytes) and verb=ListSets returns 200 (51,214 bytes) enumerating real issue sets. The OJS
+    software is PKP's; the deployment, the host, the journal and the metadata are IISc's, and no OJS
+    contract is saved under this institution. A second OAI-PMH interface is advertised by
+    ePrints@IISc at https://eprints.iisc.ac.in/cgi/oai2 but could not be confirmed — see
+    conforms_unverified below.
+- id: lti
+  conforms: true
+  operator: institution
+  evidence: >-
+    IISc runs its own Moodle LMS ("IKEN") at https://courses.iisc.ac.in (200, meta keywords
+    "moodle"), and its LTI 1.3 platform surface is publicly reachable. GET
+    https://courses.iisc.ac.in/mod/lti/certs.php returns 200 application/json — a live JWKS
+    {"keys":[{"kty":"RSA","alg":"RS256","kid":"ffa71c7514f167fc08f4",...}]} — and
+    https://courses.iisc.ac.in/mod/lti/auth.php returns 200, i.e. the IMS Global LTI Advantage
+    OIDC authorization endpoint and public key set of this Moodle instance are deployed and served
+    from the institution's own domain. The Moodle web-services REST endpoint at
+    https://courses.iisc.ac.in/webservice/rest/server.php is also live, returning 200
+    application/json {"exception":"moodle_exception","errorcode":"invalidtoken"} to a keyless call,
+    and /lib/ajax/service.php returns a structured Moodle JSON error — both are token-gated, so no
+    LTI or web-service payload could be read without credentials.
+- id: orcid
+  conforms: false
+  operator: none
+  evidence: >-
+    No institutional ORCID member integration is publicly evidenced. ePrints@IISc and ETD@IISc were
+    not reachable to inspect (403 Azure WAF and 502 respectively), and no IISc ORCID client id or
+    member API configuration is exposed on any reachable IISc host.
+    https://pub.orcid.org/v3.0/expanded-search/?q=affiliation-org-name:"Indian Institute of Science"
+    returns 200 with individual researcher records self-asserting IISc affiliation, which is a fact
+    about those researchers, not an institutional integration, and is deliberately not counted here.
+- id: datacite
+  conforms: false
+  operator: none
+  evidence: >-
+    Not a DataCite member. https://api.datacite.org/providers?query=Indian%20Institute%20of%20Science
+    returns 200 with meta.total 0, and https://api.datacite.org/clients?query=iisc returns 200 with
+    meta.total 0. No DOI prefix is registered to the institution.
+- id: crossref
+  conforms: false
+  operator: none
+  evidence: >-
+    Not a Crossref member (depositor). https://api.crossref.org/members?query=Indian+Institute+of+Science
+    returns 200 with total-results 0. IISc does hold an entry in the Crossref Open Funder Registry —
+    https://api.crossref.org/funders/100007780 returns 200 naming "Indian Institute of Science" with
+    a hierarchy of its own centres — but being listed as a funder is a registry membership, not
+    Crossref DOI deposit conformance, and it is recorded under registry_membership below rather than
+    scored here.
+- id: scim
+  conforms: false
+  operator: none
+  evidence: >-
+    No SCIM 2.0 endpoint found. No /scim or /scim/v2 path exists on iisc.ac.in, courses.iisc.ac.in or
+    libraryidp.iisc.ac.in; identity provisioning at IISc is not publicly exposed.
+- id: oneroster
+  conforms: false
+  operator: none
+  evidence: >-
+    No IMS OneRoster surface. The only enrolment system found is the institution's Moodle
+    (courses.iisc.ac.in), whose OneRoster support is not enabled on any public path —
+    /enrol/lti/ returns 404.
+- id: ed-fi
+  conforms: false
+  operator: none
+  evidence: >-
+    Ed-Fi is a US K-12/state-longitudinal-data standard with no adoption in Indian higher education
+    and no endpoint on any IISc host.
+- id: caliper
+  conforms: false
+  operator: none
+  evidence: >-
+    No IMS Caliper Analytics event store or sensor endpoint is exposed by the Moodle instance or any
+    other IISc host.
+- id: qti
+  conforms: false
+  operator: none
+  evidence: >-
+    No QTI assessment interchange endpoint is publicly exposed; the Moodle instance requires
+    authentication for all assessment paths (courses.iisc.ac.in/ returns the login page).
+conforms_unverified:
+- id: oai-pmh
+  host: eprints.iisc.ac.in
+  operator: institution
+  detail: >-
+    ePrints@IISc documents an OAI-PMH interface at the standard EPrints path
+    https://eprints.iisc.ac.in/cgi/oai2, but the host sits behind an Azure Web Application Firewall
+    that returns 403 with an "Azure WAF" HTML body to every automated client tried on 2026-09-01 —
+    a browser Chrome User-Agent, a Windows Chrome User-Agent, Googlebot and bare curl all get 403,
+    and the Internet Archive's own captures of the host in 2026 (2026-01-14, 2026-02-26) also
+    recorded 403. Bot-blocked is a finding about the WAF, not a gap in the institution: the
+    repository is live to human browsers. Not counted as a conformance hit because no OAI-PMH
+    response body was ever read.
+registry_membership:
+- registry: ROR
+  id: https://ror.org/04dese585
+  operator: registry
+  evidence: >-
+    https://api.ror.org/organizations/04dese585 returns 200 — "Indian Institute of Science" / "IISc",
+    established 1909, domains ["iisc.ac.in"], external ids grid.34980.36, ISNI 0000 0001 0482 5067,
+    Wikidata Q948720, Crossref Funder ids 100007780/100008044/100007871, last modified 2026-08-25.
+    ROR is an identifier registry IISc is registered in; ROR's own contract is not saved here.
+- registry: Crossref Open Funder Registry
+  id: '100007780'
+  operator: registry
+  evidence: >-
+    https://api.crossref.org/funders/100007780 returns 200 — "Indian Institute of Science", with a
+    hierarchy naming IISc sub-units including the Center for Infrastructure, Sustainable
+    Transportation and Urban Planning (100008044) and the Indo-French Centre for Applied Mathematics
+    (100009935). A funder-registry entry, not DOI-deposit membership.
+- registry: eduGAIN / INFED
+  id: https://libraryidp.iisc.ac.in/idp/shibboleth
+  operator: federation
+  evidence: >-
+    https://technical.edugain.org/api.php?action=list_entities returns 200 (7,812,494 bytes) and
+    contains exactly one IISc entity — id 672727, entityid
+    https://libraryidp.iisc.ac.in/idp/shibboleth, e_displayname "en;Indian Institute of Science,
+    Bengaluru", regauth http://inflibnet.ac.in, code INFED, scopes iisc.ac.in, roles
+    IDPSSODescriptor + AttributeAuthorityDescriptor, first_seen 2020-04-12 09:33:51, sirtfi_status 1.
+    A federation is shared by definition; the IdP behind this entry is IISc's own.

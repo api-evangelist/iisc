@@ -1,3 +1,6 @@
+# x-generated: '2026-09-01'
+# x-method: generated
+# x-source: API Evangelist enrichment; IISc publishes no pricing or plan surface
 specification: API Commons Plans
 specificationVersion: '0.1'
 schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans

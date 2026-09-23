@@ -10,7 +10,14 @@
       "handle": "2005/5170",
       "type": "collection",
       "link": "/rest/collections/69f74cce-3eed-46f7-b61c-c0fb6cd9228d",
-      "expand": ["parentCommunityList", "parentCommunity", "items", "license", "logo", "all"],
+      "expand": [
+        "parentCommunityList",
+        "parentCommunity",
+        "items",
+        "license",
+        "logo",
+        "all"
+      ],
       "logo": null,
       "parentCommunity": null,
       "parentCommunityList": [],
@@ -22,5 +29,8 @@
       "sidebarText": "",
       "numberItems": 0
     }
-  ]
+  ],
+  "x-generated": "2026-09-01",
+  "x-method": "generated",
+  "x-source": "openapi/iisc-collections-api-openapi.yml (API Evangelist-authored illustrative example; the ETD@IISc host has returned 502 since ~2026-05-16 and no live response was captured on 2026-09-01)"
 }

@@ -10,7 +10,11 @@
       "handle": "2005/141",
       "type": "item",
       "link": "/rest/items/6c85dfdd-ee8a-47e0-a1a8-0a329b180a7d",
-      "expand": ["parentCollection", "parentCollectionList", "all"],
+      "expand": [
+        "parentCollection",
+        "parentCollectionList",
+        "all"
+      ],
       "lastModified": "2020-10-27 12:52:56.13",
       "archived": "true",
       "withdrawn": "false",
@@ -50,5 +54,8 @@
       ],
       "bitstreams": []
     }
-  ]
+  ],
+  "x-generated": "2026-09-01",
+  "x-method": "generated",
+  "x-source": "openapi/iisc-items-api-openapi.yml (API Evangelist-authored illustrative example; the ETD@IISc host has returned 502 since ~2026-05-16 and no live response was captured on 2026-09-01)"
 }
