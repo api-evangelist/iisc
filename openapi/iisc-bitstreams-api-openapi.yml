@@ -52,31 +52,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    NotFound:
-      description: The requested resource was not found.
   schemas:
-    MetadataEntry:
-      type: object
-      description: A single Dublin Core metadata field on an item.
-      properties:
-        key:
-          type: string
-          description: Qualified DC key (for example dc.contributor.advisor).
-        value:
-          type: string
-        language:
-          type:
-          - string
-          - 'null'
-        element:
-          type: string
-        qualifier:
-          type:
-          - string
-          - 'null'
-        schema:
-          type: string
     Collection:
       allOf:
       - $ref: '#/components/schemas/DSpaceObject'
@@ -108,6 +84,32 @@ components:
             type: string
           numberItems:
             type: integer
+    Item:
+      allOf:
+      - $ref: '#/components/schemas/DSpaceObject'
+      - type: object
+        properties:
+          lastModified:
+            type: string
+            description: Timestamp of the last modification.
+          archived:
+            type: boolean
+          withdrawn:
+            type: boolean
+          parentCollection:
+            $ref: '#/components/schemas/Collection'
+          parentCollectionList:
+            type: array
+            items:
+              $ref: '#/components/schemas/Collection'
+          metadata:
+            type: array
+            items:
+              $ref: '#/components/schemas/MetadataEntry'
+          bitstreams:
+            type: array
+            items:
+              $ref: '#/components/schemas/Bitstream'
     DSpaceObject:
       type: object
       description: Common base fields shared by DSpace REST resources.
@@ -167,32 +169,27 @@ components:
             - 'null'
             items:
               type: object
-    Item:
-      allOf:
-      - $ref: '#/components/schemas/DSpaceObject'
-      - type: object
-        properties:
-          lastModified:
-            type: string
-            description: Timestamp of the last modification.
-          archived:
-            type: boolean
-          withdrawn:
-            type: boolean
-          parentCollection:
-            $ref: '#/components/schemas/Collection'
-          parentCollectionList:
-            type: array
-            items:
-              $ref: '#/components/schemas/Collection'
-          metadata:
-            type: array
-            items:
-              $ref: '#/components/schemas/MetadataEntry'
-          bitstreams:
-            type: array
-            items:
-              $ref: '#/components/schemas/Bitstream'
+    MetadataEntry:
+      type: object
+      description: A single Dublin Core metadata field on an item.
+      properties:
+        key:
+          type: string
+          description: Qualified DC key (for example dc.contributor.advisor).
+        value:
+          type: string
+        language:
+          type:
+          - string
+          - 'null'
+        element:
+          type: string
+        qualifier:
+          type:
+          - string
+          - 'null'
+        schema:
+          type: string
     Community:
       allOf:
       - $ref: '#/components/schemas/DSpaceObject'
@@ -220,6 +217,9 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/Community'
+  responses:
+    NotFound:
+      description: The requested resource was not found.
   parameters:
     itemId:
       name: itemId

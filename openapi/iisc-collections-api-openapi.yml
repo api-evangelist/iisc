@@ -51,63 +51,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    NotFound:
-      description: The requested resource was not found.
-  parameters:
-    collectionId:
-      name: collectionId
-      in: path
-      required: true
-      description: UUID of the collection.
-      schema:
-        type: string
-        format: uuid
-    limit:
-      name: limit
-      in: query
-      description: Maximum number of records to return.
-      required: false
-      schema:
-        type: integer
-        default: 100
-    offset:
-      name: offset
-      in: query
-      description: Number of records to skip for pagination.
-      required: false
-      schema:
-        type: integer
-        default: 0
-    expand:
-      name: expand
-      in: query
-      description: Comma-separated list of sub-resources to inline in the response (for example metadata,bitstreams,collections,subcommunities).
-      required: false
-      schema:
-        type: string
   schemas:
-    MetadataEntry:
-      type: object
-      description: A single Dublin Core metadata field on an item.
-      properties:
-        key:
-          type: string
-          description: Qualified DC key (for example dc.contributor.advisor).
-        value:
-          type: string
-        language:
-          type:
-          - string
-          - 'null'
-        element:
-          type: string
-        qualifier:
-          type:
-          - string
-          - 'null'
-        schema:
-          type: string
     Collection:
       allOf:
       - $ref: '#/components/schemas/DSpaceObject'
@@ -139,6 +83,32 @@ components:
             type: string
           numberItems:
             type: integer
+    Item:
+      allOf:
+      - $ref: '#/components/schemas/DSpaceObject'
+      - type: object
+        properties:
+          lastModified:
+            type: string
+            description: Timestamp of the last modification.
+          archived:
+            type: boolean
+          withdrawn:
+            type: boolean
+          parentCollection:
+            $ref: '#/components/schemas/Collection'
+          parentCollectionList:
+            type: array
+            items:
+              $ref: '#/components/schemas/Collection'
+          metadata:
+            type: array
+            items:
+              $ref: '#/components/schemas/MetadataEntry'
+          bitstreams:
+            type: array
+            items:
+              $ref: '#/components/schemas/Bitstream'
     DSpaceObject:
       type: object
       description: Common base fields shared by DSpace REST resources.
@@ -198,32 +168,27 @@ components:
             - 'null'
             items:
               type: object
-    Item:
-      allOf:
-      - $ref: '#/components/schemas/DSpaceObject'
-      - type: object
-        properties:
-          lastModified:
-            type: string
-            description: Timestamp of the last modification.
-          archived:
-            type: boolean
-          withdrawn:
-            type: boolean
-          parentCollection:
-            $ref: '#/components/schemas/Collection'
-          parentCollectionList:
-            type: array
-            items:
-              $ref: '#/components/schemas/Collection'
-          metadata:
-            type: array
-            items:
-              $ref: '#/components/schemas/MetadataEntry'
-          bitstreams:
-            type: array
-            items:
-              $ref: '#/components/schemas/Bitstream'
+    MetadataEntry:
+      type: object
+      description: A single Dublin Core metadata field on an item.
+      properties:
+        key:
+          type: string
+          description: Qualified DC key (for example dc.contributor.advisor).
+        value:
+          type: string
+        language:
+          type:
+          - string
+          - 'null'
+        element:
+          type: string
+        qualifier:
+          type:
+          - string
+          - 'null'
+        schema:
+          type: string
     Community:
       allOf:
       - $ref: '#/components/schemas/DSpaceObject'
@@ -251,6 +216,41 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/Community'
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+  parameters:
+    limit:
+      name: limit
+      in: query
+      description: Maximum number of records to return.
+      required: false
+      schema:
+        type: integer
+        default: 100
+    offset:
+      name: offset
+      in: query
+      description: Number of records to skip for pagination.
+      required: false
+      schema:
+        type: integer
+        default: 0
+    collectionId:
+      name: collectionId
+      in: path
+      required: true
+      description: UUID of the collection.
+      schema:
+        type: string
+        format: uuid
+    expand:
+      name: expand
+      in: query
+      description: Comma-separated list of sub-resources to inline in the response (for example metadata,bitstreams,collections,subcommunities).
+      required: false
+      schema:
+        type: string
 x-generated: '2026-09-01'
 x-method: generated
 x-source: 'API Evangelist-authored. Modelled on the documented DSpace 6 REST contract and confirmed against https://etd.iisc.ac.in/rest during the 2026-06-03 enrichment run. IISc publishes no machine-readable OpenAPI of its own; this is our description of its DSpace deployment, not a provider-published artifact. Re-probed 2026-09-01: host returns 502 (see info.description).'
