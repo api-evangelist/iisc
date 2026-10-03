@@ -53,6 +53,27 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
+    DSpaceObject:
+      type: object
+      description: Common base fields shared by DSpace REST resources.
+      properties:
+        uuid:
+          type: string
+          format: uuid
+        name:
+          type: string
+        handle:
+          type: string
+          description: Persistent handle identifier (for example 2005/141).
+        type:
+          type: string
+        link:
+          type: string
+          description: Relative REST path to this resource.
+        expand:
+          type: array
+          items:
+            type: string
     Collection:
       allOf:
       - $ref: '#/components/schemas/DSpaceObject'
@@ -84,53 +105,6 @@ components:
             type: string
           numberItems:
             type: integer
-    Item:
-      allOf:
-      - $ref: '#/components/schemas/DSpaceObject'
-      - type: object
-        properties:
-          lastModified:
-            type: string
-            description: Timestamp of the last modification.
-          archived:
-            type: boolean
-          withdrawn:
-            type: boolean
-          parentCollection:
-            $ref: '#/components/schemas/Collection'
-          parentCollectionList:
-            type: array
-            items:
-              $ref: '#/components/schemas/Collection'
-          metadata:
-            type: array
-            items:
-              $ref: '#/components/schemas/MetadataEntry'
-          bitstreams:
-            type: array
-            items:
-              $ref: '#/components/schemas/Bitstream'
-    DSpaceObject:
-      type: object
-      description: Common base fields shared by DSpace REST resources.
-      properties:
-        uuid:
-          type: string
-          format: uuid
-        name:
-          type: string
-        handle:
-          type: string
-          description: Persistent handle identifier (for example 2005/141).
-        type:
-          type: string
-        link:
-          type: string
-          description: Relative REST path to this resource.
-        expand:
-          type: array
-          items:
-            type: string
     Bitstream:
       allOf:
       - $ref: '#/components/schemas/DSpaceObject'
@@ -217,23 +191,38 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/Community'
-  responses:
-    NotFound:
-      description: The requested resource was not found.
+    Item:
+      allOf:
+      - $ref: '#/components/schemas/DSpaceObject'
+      - type: object
+        properties:
+          lastModified:
+            type: string
+            description: Timestamp of the last modification.
+          archived:
+            type: boolean
+          withdrawn:
+            type: boolean
+          parentCollection:
+            $ref: '#/components/schemas/Collection'
+          parentCollectionList:
+            type: array
+            items:
+              $ref: '#/components/schemas/Collection'
+          metadata:
+            type: array
+            items:
+              $ref: '#/components/schemas/MetadataEntry'
+          bitstreams:
+            type: array
+            items:
+              $ref: '#/components/schemas/Bitstream'
   parameters:
     itemId:
       name: itemId
       in: path
       required: true
       description: UUID of the item.
-      schema:
-        type: string
-        format: uuid
-    bitstreamId:
-      name: bitstreamId
-      in: path
-      required: true
-      description: UUID of the bitstream.
       schema:
         type: string
         format: uuid
@@ -244,6 +233,17 @@ components:
       required: false
       schema:
         type: string
+    bitstreamId:
+      name: bitstreamId
+      in: path
+      required: true
+      description: UUID of the bitstream.
+      schema:
+        type: string
+        format: uuid
+  responses:
+    NotFound:
+      description: The requested resource was not found.
 x-generated: '2026-09-01'
 x-method: generated
 x-source: 'API Evangelist-authored. Modelled on the documented DSpace 6 REST contract and confirmed against https://etd.iisc.ac.in/rest during the 2026-06-03 enrichment run. IISc publishes no machine-readable OpenAPI of its own; this is our description of its DSpace deployment, not a provider-published artifact. Re-probed 2026-09-01: host returns 502 (see info.description).'

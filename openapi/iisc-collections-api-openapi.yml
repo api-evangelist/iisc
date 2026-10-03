@@ -52,63 +52,6 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    Collection:
-      allOf:
-      - $ref: '#/components/schemas/DSpaceObject'
-      - type: object
-        properties:
-          logo:
-            $ref: '#/components/schemas/Bitstream'
-          parentCommunity:
-            $ref: '#/components/schemas/Community'
-          parentCommunityList:
-            type: array
-            items:
-              $ref: '#/components/schemas/Community'
-          items:
-            type: array
-            items:
-              $ref: '#/components/schemas/Item'
-          license:
-            type:
-            - string
-            - 'null'
-          copyrightText:
-            type: string
-          introductoryText:
-            type: string
-          shortDescription:
-            type: string
-          sidebarText:
-            type: string
-          numberItems:
-            type: integer
-    Item:
-      allOf:
-      - $ref: '#/components/schemas/DSpaceObject'
-      - type: object
-        properties:
-          lastModified:
-            type: string
-            description: Timestamp of the last modification.
-          archived:
-            type: boolean
-          withdrawn:
-            type: boolean
-          parentCollection:
-            $ref: '#/components/schemas/Collection'
-          parentCollectionList:
-            type: array
-            items:
-              $ref: '#/components/schemas/Collection'
-          metadata:
-            type: array
-            items:
-              $ref: '#/components/schemas/MetadataEntry'
-          bitstreams:
-            type: array
-            items:
-              $ref: '#/components/schemas/Bitstream'
     DSpaceObject:
       type: object
       description: Common base fields shared by DSpace REST resources.
@@ -189,6 +132,37 @@ components:
           - 'null'
         schema:
           type: string
+    Collection:
+      allOf:
+      - $ref: '#/components/schemas/DSpaceObject'
+      - type: object
+        properties:
+          logo:
+            $ref: '#/components/schemas/Bitstream'
+          parentCommunity:
+            $ref: '#/components/schemas/Community'
+          parentCommunityList:
+            type: array
+            items:
+              $ref: '#/components/schemas/Community'
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Item'
+          license:
+            type:
+            - string
+            - 'null'
+          copyrightText:
+            type: string
+          introductoryText:
+            type: string
+          shortDescription:
+            type: string
+          sidebarText:
+            type: string
+          numberItems:
+            type: integer
     Community:
       allOf:
       - $ref: '#/components/schemas/DSpaceObject'
@@ -216,10 +190,41 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/Community'
-  responses:
-    NotFound:
-      description: The requested resource was not found.
+    Item:
+      allOf:
+      - $ref: '#/components/schemas/DSpaceObject'
+      - type: object
+        properties:
+          lastModified:
+            type: string
+            description: Timestamp of the last modification.
+          archived:
+            type: boolean
+          withdrawn:
+            type: boolean
+          parentCollection:
+            $ref: '#/components/schemas/Collection'
+          parentCollectionList:
+            type: array
+            items:
+              $ref: '#/components/schemas/Collection'
+          metadata:
+            type: array
+            items:
+              $ref: '#/components/schemas/MetadataEntry'
+          bitstreams:
+            type: array
+            items:
+              $ref: '#/components/schemas/Bitstream'
   parameters:
+    collectionId:
+      name: collectionId
+      in: path
+      required: true
+      description: UUID of the collection.
+      schema:
+        type: string
+        format: uuid
     limit:
       name: limit
       in: query
@@ -236,14 +241,6 @@ components:
       schema:
         type: integer
         default: 0
-    collectionId:
-      name: collectionId
-      in: path
-      required: true
-      description: UUID of the collection.
-      schema:
-        type: string
-        format: uuid
     expand:
       name: expand
       in: query
@@ -251,6 +248,9 @@ components:
       required: false
       schema:
         type: string
+  responses:
+    NotFound:
+      description: The requested resource was not found.
 x-generated: '2026-09-01'
 x-method: generated
 x-source: 'API Evangelist-authored. Modelled on the documented DSpace 6 REST contract and confirmed against https://etd.iisc.ac.in/rest during the 2026-06-03 enrichment run. IISc publishes no machine-readable OpenAPI of its own; this is our description of its DSpace deployment, not a provider-published artifact. Re-probed 2026-09-01: host returns 502 (see info.description).'
