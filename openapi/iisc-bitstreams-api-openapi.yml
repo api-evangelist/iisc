@@ -52,28 +52,61 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+  parameters:
+    bitstreamId:
+      name: bitstreamId
+      in: path
+      required: true
+      description: UUID of the bitstream.
+      schema:
+        type: string
+        format: uuid
+    expand:
+      name: expand
+      in: query
+      description: Comma-separated list of sub-resources to inline in the response (for example metadata,bitstreams,collections,subcommunities).
+      required: false
+      schema:
+        type: string
+    itemId:
+      name: itemId
+      in: path
+      required: true
+      description: UUID of the item.
+      schema:
+        type: string
+        format: uuid
   schemas:
-    DSpaceObject:
-      type: object
-      description: Common base fields shared by DSpace REST resources.
-      properties:
-        uuid:
-          type: string
-          format: uuid
-        name:
-          type: string
-        handle:
-          type: string
-          description: Persistent handle identifier (for example 2005/141).
-        type:
-          type: string
-        link:
-          type: string
-          description: Relative REST path to this resource.
-        expand:
-          type: array
-          items:
+    Community:
+      allOf:
+      - $ref: '#/components/schemas/DSpaceObject'
+      - type: object
+        properties:
+          logo:
+            $ref: '#/components/schemas/Bitstream'
+          parentCommunity:
+            $ref: '#/components/schemas/Community'
+          copyrightText:
             type: string
+          introductoryText:
+            type: string
+          shortDescription:
+            type: string
+          sidebarText:
+            type: string
+          countItems:
+            type: integer
+          collections:
+            type: array
+            items:
+              $ref: '#/components/schemas/Collection'
+          subcommunities:
+            type: array
+            items:
+              $ref: '#/components/schemas/Community'
     Collection:
       allOf:
       - $ref: '#/components/schemas/DSpaceObject'
@@ -105,6 +138,27 @@ components:
             type: string
           numberItems:
             type: integer
+    MetadataEntry:
+      type: object
+      description: A single Dublin Core metadata field on an item.
+      properties:
+        key:
+          type: string
+          description: Qualified DC key (for example dc.contributor.advisor).
+        value:
+          type: string
+        language:
+          type:
+          - string
+          - 'null'
+        element:
+          type: string
+        qualifier:
+          type:
+          - string
+          - 'null'
+        schema:
+          type: string
     Bitstream:
       allOf:
       - $ref: '#/components/schemas/DSpaceObject'
@@ -143,54 +197,27 @@ components:
             - 'null'
             items:
               type: object
-    MetadataEntry:
+    DSpaceObject:
       type: object
-      description: A single Dublin Core metadata field on an item.
+      description: Common base fields shared by DSpace REST resources.
       properties:
-        key:
+        uuid:
           type: string
-          description: Qualified DC key (for example dc.contributor.advisor).
-        value:
+          format: uuid
+        name:
           type: string
-        language:
-          type:
-          - string
-          - 'null'
-        element:
+        handle:
           type: string
-        qualifier:
-          type:
-          - string
-          - 'null'
-        schema:
+          description: Persistent handle identifier (for example 2005/141).
+        type:
           type: string
-    Community:
-      allOf:
-      - $ref: '#/components/schemas/DSpaceObject'
-      - type: object
-        properties:
-          logo:
-            $ref: '#/components/schemas/Bitstream'
-          parentCommunity:
-            $ref: '#/components/schemas/Community'
-          copyrightText:
+        link:
+          type: string
+          description: Relative REST path to this resource.
+        expand:
+          type: array
+          items:
             type: string
-          introductoryText:
-            type: string
-          shortDescription:
-            type: string
-          sidebarText:
-            type: string
-          countItems:
-            type: integer
-          collections:
-            type: array
-            items:
-              $ref: '#/components/schemas/Collection'
-          subcommunities:
-            type: array
-            items:
-              $ref: '#/components/schemas/Community'
     Item:
       allOf:
       - $ref: '#/components/schemas/DSpaceObject'
@@ -217,33 +244,6 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/Bitstream'
-  parameters:
-    itemId:
-      name: itemId
-      in: path
-      required: true
-      description: UUID of the item.
-      schema:
-        type: string
-        format: uuid
-    expand:
-      name: expand
-      in: query
-      description: Comma-separated list of sub-resources to inline in the response (for example metadata,bitstreams,collections,subcommunities).
-      required: false
-      schema:
-        type: string
-    bitstreamId:
-      name: bitstreamId
-      in: path
-      required: true
-      description: UUID of the bitstream.
-      schema:
-        type: string
-        format: uuid
-  responses:
-    NotFound:
-      description: The requested resource was not found.
 x-generated: '2026-09-01'
 x-method: generated
 x-source: 'API Evangelist-authored. Modelled on the documented DSpace 6 REST contract and confirmed against https://etd.iisc.ac.in/rest during the 2026-06-03 enrichment run. IISc publishes no machine-readable OpenAPI of its own; this is our description of its DSpace deployment, not a provider-published artifact. Re-probed 2026-09-01: host returns 502 (see info.description).'
