@@ -1,4 +1,4 @@
-# Indian Institute of Science Bangalore (iisc)
+# Indian Institute of Science Bangalore
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,49 +64,167 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-The Indian Institute of Science (IISc) Bangalore is India's premier research-intensive university, founded in 1909 and ranked #211 in the QS World University Rankings 2025. This repository catalogs IISc's confirmable public developer/API footprint as an [APIs.json](https://apisjson.org) profile. IISc does not run a centralized public developer portal; its machine-readable surface is primarily open-access academic infrastructure — the ePrints@IISc institutional repository and the DSpace-based ETD@IISc theses repository, both OAI-PMH compliant.
+The Indian Institute of Science (IISc) Bangalore, founded 1909, is India's premier research-intensive institution — a deemed university, an Institute of Eminence, and ranked #211 in the QS World University Rankings 2025. It operates no developer portal, publishes no OpenAPI of its own, and this profile does not pretend otherwise. What it does run, on hosts under its own iisc.ac.in domain, are three verified institution-operated machine surfaces: a Shibboleth SAML 2.0 identity provider at libraryidp.iisc.ac.in registered in the INFLIBNET Access Management Federation (INFED) and carried into eduGAIN; an OAI-PMH 2.0 provider on the Open Journal Systems instance behind the Journal of the Indian Institute of Science at journal.iisc.ac.in; and a self-hosted Moodle LMS at courses.iisc.ac.in whose LTI 1.3 JWKS and token-gated web-services REST endpoint are both live. Two older repository surfaces are currently unreadable rather than absent — ETD@IISc (DSpace 6) has returned 502 on every path since roughly May 2026, and ePrints@IISc sits behind an Azure WAF that 403s every automated client including the Internet Archive. IISc is registered in ROR (04dese585) and the Crossref Open Funder Registry (100007780) but is not a DataCite or Crossref member. Its public code lives in departmental GitHub organisations (val-iisc, csl-iisc, cni-iisc), not in a central institutional org — github.com/IISc exists but holds zero public repositories.
 
-- APIs.json: https://raw.githubusercontent.com/api-evangelist/iisc/refs/heads/main/apis.yml
-- Run with Naftiko: https://github.com/naftiko/fleet?utm_source=api-evangelist&utm_medium=readme&utm_campaign=iisc-api-evangelist&utm_content=repo
+**Areas:** Education · Higher Education · University · India · Institute of Eminence · Research · Research Repository · Open Access · OAI-PMH · Identity Federation · Shibboleth · Library
 
-## Type
+## Indian Institute of Science Bangalore on APIs.io
 
-- Type: Index
-- Position: Consumer
-- Access: 3rd-Party
+Everything profiled for Indian Institute of Science Bangalore is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/iisc/](https://apis.io/providers/iisc/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (7)
 
-Education, Higher Education, University, Research, Open Access, Institutional Repository, OAI-PMH, India
+- [IISc Shibboleth Identity Provider (INFED / eduGAIN)](https://apis.io/apis/iisc/identity-federation/) — Institution-operated Shibboleth SAML 2.0 identity provider, self-published as machine-readable metadata on IISc's own host and registered in the INFLIBNET…
+- [Journal of the Indian Institute of Science OAI-PMH](https://apis.io/apis/iisc/jiisc-oai/) — Live OAI-PMH 2.0 metadata-harvesting provider for the Journal of the Indian Institute of Science, served from IISc's own journal.iisc.ac.in host on an Open…
+- [IKEN Moodle LMS — web services and LTI 1.3 platform](https://apis.io/apis/iisc/courses-moodle/) — IISc's own learning management system, a self-hosted Moodle branded "IKEN" at courses.iisc.ac.in, exposing two machine surfaces verified live 2026-09-01.…
+- [ETD@IISc DSpace 6 REST API](https://apis.io/apis/iisc/etd-dspace-rest/) — Read-only REST API of ETD@IISc, the Electronic Theses and Dissertations repository IISc runs on DSpace 6 at its own etd.iisc.ac.in host, serving the…
+- [ePrints@IISc OAI-PMH](https://apis.io/apis/iisc/eprints-oai/) — ePrints@IISc is the open-access institutional repository of IISc research publications, established in 2002 on EPrints software and self-hosted on the…
+- [ROR registration — Indian Institute of Science](https://apis.io/apis/iisc/ror-registration/) — IISc is registered in the Research Organization Registry as https://ror.org/04dese585. Verified 2026-09-01 — https://api.ror.org/organizations/04dese585…
+- [Crossref Open Funder Registry entry — Indian Institute of Science](https://apis.io/apis/iisc/crossref-funder-registry/) — IISc holds Crossref Open Funder Registry id 100007780. Verified 2026-09-01 — https://api.crossref.org/funders/100007780 returns 200 naming "Indian Institute…
 
-## APIs
+### Published properties
 
-- **ePrints@IISc OAI-PMH** — OAI-PMH metadata interface for IISc's open-access research repository (EPrints, standard `/cgi/oai2` path). Docs: https://eprints.iisc.ac.in/information.html
-- **ETD@IISc OAI-PMH** — OAI/ETD-MS compliant theses-and-dissertations metadata interface (DSpace). Docs: https://etd.iisc.ac.in/
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## Plans, Rate Limits, and FinOps
+#### Agentic access (1)
 
-- Plans / Pricing: [plans/iisc-plans-pricing.yml](plans/iisc-plans-pricing.yml)
-- Rate Limits: [rate-limits/iisc-rate-limits.yml](rate-limits/iisc-rate-limits.yml)
-- FinOps: [finops/iisc-finops.yml](finops/iisc-finops.yml)
+Which operations an agent can call, which act, and which need a human in the loop.
 
-## Timestamps
+- [Iisc Agentic Access](https://apis.io/agentic-access/iisc/iisc-agentic-access/)
 
-- Created: 2026-06-03
-- Modified: 2026-06-03
+#### JSON Schema (4)
 
-## Common Properties
+The data models the API reads and writes.
 
-- Website: https://iisc.ac.in/
-- Library: https://library.iisc.ac.in/
-- GitHub: https://github.com/IISc
-- LinkedIn: https://www.linkedin.com/school/indian-institute-of-science/
-- Review: [review.yml](review.yml)
+- [ETD@IISc Bitstream](https://apis.io/schemas/iisc/iisc-bitstream/)
+- [ETD@IISc Collection](https://apis.io/schemas/iisc/iisc-collection/)
+- [ETD@IISc Community](https://apis.io/schemas/iisc/iisc-community/)
+- [ETD@IISc Item](https://apis.io/schemas/iisc/iisc-item/)
 
-## Notes
+#### JSON Structure (2)
 
-Verification caveats (reviewed 2026-06-03): the official website (200) and library site (200) resolve cleanly. The ePrints@IISc repository and its OAI endpoint return HTTP 403 behind an Azure Application Gateway that blocks automated requests — the repository is real and documented (Registry of Open Access Repositories, IISc pages) but its OAI endpoint could not be programmatically verified. ETD@IISc returned HTTP 502 at review time. The `github.com/IISc` org exists but has no public repositories; only lab-level orgs (cni-iisc, csl-iisc, val-iisc) publish open source. No endpoints were fabricated.
+Data models expressed in JSON Structure.
 
-## Maintainers
+- [Iisc Community Structure](https://apis.io/json-structure/iisc/iisc-community-structure/)
+- [Iisc Item Structure](https://apis.io/json-structure/iisc/iisc-item-structure/)
 
-- Kin Lane — kin@apievangelist.com
+#### JSON-LD (1)
+
+Linked-data contexts for the provider's vocabulary.
+
+- [Iisc Context](https://apis.io/jsonld/iisc/iisc-context/)
+
+#### Vocabulary (1)
+
+The provider's domain terms, defined.
+
+- [ETD@IISc DSpace Vocabulary](https://apis.io/vocabularies/iisc/iisc-vocabulary/)
+
+#### Examples (3)
+
+Example requests and responses.
+
+- [Iisc Listcollections Example](https://apis.io/examples/iisc/iisc-listCollections-example/)
+- [Iisc Listcommunities Example](https://apis.io/examples/iisc/iisc-listCommunities-example/)
+- [Iisc Listitems Example](https://apis.io/examples/iisc/iisc-listItems-example/)
+
+#### Collections (4)
+
+Postman and Open Collection request collections.
+
+- [ETD@IISc DSpace REST Bitstreams API](https://apis.io/collections/iisc/open-iisc-bitstreams-api/)
+- [ETD@IISc DSpace REST Bitstreams Collections API](https://apis.io/collections/iisc/open-iisc-collections-api/)
+- [ETD@IISc DSpace REST Bitstreams Communities API](https://apis.io/collections/iisc/open-iisc-communities-api/)
+- [ETD@IISc DSpace REST Bitstreams Items API](https://apis.io/collections/iisc/open-iisc-items-api/)
+
+#### Governance rules (2)
+
+Spectral rulesets for the provider's contracts.
+
+- [Indian Institute of Science Bangalore — jsonschema rules](https://apis.io/rules/iisc/iisc-jsonschema-spectral-rules/)
+- [Indian Institute of Science Bangalore API Rules](https://apis.io/rules/iisc/iisc-rules/)
+
+#### Security (1)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Iisc Domain Security](https://apis.io/security/iisc/iisc-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Iisc Plans Pricing](https://apis.io/plans/iisc/iisc-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Iisc Rate Limits](https://apis.io/rate-limits/iisc/iisc-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Iisc Finops](https://apis.io/finops/iisc/iisc-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://iisc.ac.in/)
+- [Documentation](https://iisc.ac.in/academics/)
+- [API reference](https://journal.iisc.ac.in/index.php/iisc/oai?verb=Identify)
+
+## API Evangelist rating
+
+**Kin Score 28.6** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 51.5 |
+| Contract governance | 28.0 |
+| Operational transparency | 10.5 |
+| Developer ergonomics | 16.7 |
+| Access clarity | 5.3 |
+
+**Agent readiness 17.8** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | na |
+| MCP Server | — |
+| Auth Clarity | — |
+| Idempotency | na |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | na |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 18.6** — Education & Research
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/iisc/](https://apis.io/providers/iisc/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Indian Institute of Science Bangalore: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/iisc/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
